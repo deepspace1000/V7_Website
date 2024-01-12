@@ -1,2 +1,22 @@
 # V7_Webseite
-Website für V7 jugendarbeit
+
+This Application is for the "Jugendarbeit Bauma" project called V7.
+
+## Deployment
+
+## Development
+
+### Prerequisites
+
+### Setup
+
+#### Backend
+
+#### Frontend
+
+### Jooq
+
+### Open API
+
+
+

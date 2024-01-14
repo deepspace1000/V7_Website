@@ -19,7 +19,7 @@ jobs:
   build-backend:
     timeout-minutes: 15
     env:
-      IMAGE_NAME: v7-backend
+      IMAGE_NAME: deepspace1000/v7-backend
     runs-on: ubuntu-latest
 
     defaults:
@@ -72,7 +72,7 @@ jobs:
   build-frontend:
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: v7-frontend
+      IMAGE_NAME: deepspace1000/v7-frontend
     defaults:
       run:
         working-directory: ./frontend

@@ -130,7 +130,7 @@ jobs:
         if: github.event_name != 'pull_request'
         env:
           FILE_NAME: 'version'
-          FILE_DATA: 'V7_TAG=sha-${{ needs.check.outputs.sha_short }}'
+          FILE_DATA: 'V7_TAG=sha-${{ steps.tag.outputs.TAG }}'
 
       - name: Push version file
         if: github.event_name != 'pull_request'
@@ -143,7 +143,7 @@ jobs:
           destination_branch: main
           user_email: 'nilsrothe05@icloud.com'
           user_name: 'deepspace1000'
-          commit_message: 'Update docker image version to the latest tag: sha-${{ needs.check.outputs.sha_short }}'
+          commit_message: 'Update docker image version to the latest tag: sha-${{ steps.tag.outputs.TAG }}'
 
 
 

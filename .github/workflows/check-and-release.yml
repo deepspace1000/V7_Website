@@ -125,12 +125,16 @@ jobs:
       - build-backend
       - build-frontend
     steps:
+      - name: Generate tag
+        id: tag
+        run: echo "TAG=sha-${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
+
       - name: Create version file
         uses: 'finnp/create-file-action@master'
         if: github.event_name != 'pull_request'
         env:
           FILE_NAME: 'version'
-          FILE_DATA: 'V7_TAG=sha-${{ steps.tag.outputs.TAG }}'
+          FILE_DATA: 'V7_TAG=${{ steps.tag.outputs.TAG }}'
 
       - name: Push version file
         if: github.event_name != 'pull_request'
@@ -143,7 +147,7 @@ jobs:
           destination_branch: main
           user_email: 'nilsrothe05@icloud.com'
           user_name: 'deepspace1000'
-          commit_message: 'Update docker image version to the latest tag: sha-${{ steps.tag.outputs.TAG }}'
+          commit_message: 'Update docker image version to the latest tag: ${{ steps.tag.outputs.TAG }}'
 
 
 

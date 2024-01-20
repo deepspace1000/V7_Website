@@ -1,14 +1,18 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jooq.meta.jaxb.Logging
+import org.jooq.meta.jaxb.MatcherRule
+import org.jooq.meta.jaxb.MatcherTransformType
+import org.jooq.meta.jaxb.Matchers
+import org.jooq.meta.jaxb.MatchersTableType
 
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-	id("org.springframework.boot") version "3.2.2"
-	id("io.spring.dependency-management") version "1.1.4"
-	kotlin("jvm") version "1.9.22"
-	kotlin("plugin.spring") version "1.8.22"
-	id("nu.studer.jooq") version "8.2.3"
-
-
+	alias(libs.plugins.springframework.boot)
+	alias(libs.plugins.kotlin.jvm)
+	alias(libs.plugins.kotlin.plugin.spring)
+	alias(libs.plugins.jooq)
+	alias(libs.plugins.diktat)
+	alias(libs.plugins.detekt)
 }
 
 group = "ch.v7"
@@ -23,19 +27,35 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	implementation("org.liquibase:liquibase-core")
-  	implementation("org.springframework.boot:spring-boot-starter-jooq")
-	implementation("org.jooq:jooq")
-	implementation("org.jooq:jooq-codegen")
-	implementation("org.mariadb.jdbc:mariadb-java-client")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
-	runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
-	jooqGenerator("org.mariadb.jdbc:mariadb-java-client:2.1.2")
-	jooqGenerator("jakarta.xml.bind:jakarta.xml.bind-api:4.0.1")
+	// enforcedPlatform: use this version. Earlier declarations take precedence
+	implementation(enforcedPlatform(libs.kotlin.bom))
+	implementation(enforcedPlatform(libs.spring.framework.bom))
+	api(enforcedPlatform(libs.spring.boot.dependencies)) {
+		exclude("org.yaml", "snakeyaml") // pull version from jackson (fix vulnerabilities)
+	}
+
+	implementation(libs.spring.boot.starter.actuator)
+	implementation(libs.spring.boot.starter.jooq)
+	implementation(libs.spring.boot.starter.web)
+	implementation(libs.spring.boot.starter.security)
+	implementation(libs.jackson.module.kotlin)
+	implementation(libs.kotlin.reflect)
+	implementation(libs.liquibase.core)
+	implementation(libs.springdoc.openapi.ui)
+	implementation(libs.springdoc.openapi.kotlin)
+
+	implementation(libs.jooq)
+	implementation(libs.jooq.codegen)
+	implementation(libs.mariadb.java.client)
+
+	testImplementation(libs.spring.boot.starter.test)
+	testImplementation(libs.spring.security.test)
+
+
+	runtimeOnly(libs.mariadb.java.client)
+	jooqGenerator(libs.mariadb.java.client)
+	jooqGenerator(libs.jakarta.xml.bind.api)
 
 }
 
@@ -53,6 +73,31 @@ tasks.withType<Test> {
 tasks.bootBuildImage {
 	builder.set("paketobuildpacks/builder-jammy-base:latest")
 }
+
+detekt {
+	source.setFrom("src/main/kotlin")
+	config.setFrom("detekt.yml")
+	parallel = true
+}
+
+diktat {
+	diktatConfigFile = file("diktat-analysis.yml")
+	inputs {
+		include("src/main/kotlin/**/*.kt")
+	}
+}
+
+tasks.matching { it.name == LifecycleBasePlugin.CHECK_TASK_NAME }.first().apply {
+	setDependsOn(dependsOn.filter { !(it is TaskProvider<*> && it.name == "detekt") })
+	dependsOn("diktatCheck")
+	dependsOn("detekt")
+	// Run detektMain as well. See discussion https://github.com/detekt/detekt/issues/3122 and https://github.com/detekt/detekt/discussions/4959
+	dependsOn("detektMain")
+}
+
+// Run detekt after diktat (diktat checks formatting errors that it can also fix)
+tasks.matching { it.name == "detekt" }.first().mustRunAfter("diktatCheck")
+
 
 jooq {
 	configurations {
@@ -73,13 +118,52 @@ jooq {
 						inputSchema = "backend"
 						excludes = "Databasechangelog|Databasechangeloglock"
 					}
-
+					generate.apply {
+						isDaos = true
+						isNonnullAnnotation = true
+						isNullableAnnotation = true
+						nullableAnnotationType = "org.jetbrains.annotations.Nullable"
+						nonnullAnnotationType = "org.jetbrains.annotations.NotNull"
+						isDeprecated = false
+						isRecords = true
+						isImmutablePojos = true
+						isFluentSetters = true
+						isKotlinNotNullPojoAttributes = true
+						isKotlinNotNullRecordAttributes = true
+					}
 					target.apply {
 						packageName = "ch.v7.backend.persistence"
 						directory = "src/main/kotlin-gen/jooq-gen"
 					}
 					strategy.apply {
 						name = "org.jooq.codegen.DefaultGeneratorStrategy"
+						matchers = Matchers().apply {
+							tables.add(
+								MatchersTableType().apply {
+									expression = "^t_(.*)$"
+									tableIdentifier = MatcherRule().apply {
+										expression = "$1"
+										transform = MatcherTransformType.UPPER
+									}
+									tableClass = MatcherRule().apply {
+										expression = "$1_TABLE"
+										transform = MatcherTransformType.PASCAL
+									}
+									daoClass = MatcherRule().apply {
+										expression = "$1_DAO"
+										transform = MatcherTransformType.PASCAL
+									}
+									pojoClass = MatcherRule().apply {
+										expression = "$1"
+										transform = MatcherTransformType.PASCAL
+									}
+									recordClass = MatcherRule().apply {
+										expression = "$1_RECORD"
+										transform = MatcherTransformType.PASCAL
+									}
+								},
+							)
+						}
 					}
 				}
 

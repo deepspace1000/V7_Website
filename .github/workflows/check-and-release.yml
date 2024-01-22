@@ -140,7 +140,7 @@ jobs:
         if: github.event_name != 'pull_request'
         uses: dmnemec/copy_file_to_another_repo_action@main
         env:
-          API_TOKEN_GITHUB: ${{ secrets.V7_VERSION_BUMP }}
+          API_TOKEN_GITHUB: ${{ secrets.AUTO_MERGE_TOKEN }}
         with:
           source_file: 'version'
           destination_repo: 'deepspace1000/V7_Website-Deployment'

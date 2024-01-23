@@ -6,7 +6,7 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.4"
 	kotlin("jvm") version "1.8.22"
 	kotlin("plugin.spring") version "1.8.22"
-	id("nu.studer.jooq") version "8.2.1"
+	id("nu.studer.jooq") version "8.2.3"
 
 
 }

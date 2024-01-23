@@ -44,6 +44,8 @@ dependencies {
 	implementation(libs.liquibase.core)
 	implementation(libs.springdoc.openapi.ui)
 	implementation(libs.springdoc.openapi.kotlin)
+	implementation(libs.jsonwebtoken)
+
 
 	implementation(libs.jooq)
 	implementation(libs.jooq.codegen)

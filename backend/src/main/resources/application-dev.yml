@@ -1,0 +1,11 @@
+v7:
+  jwt:
+    access-token-expiration: 3600000
+    refresh-token-expiration: 86400000
+
+springdoc:
+  api-docs:
+    path: "/openapi/v3/api-docs"
+  swagger-ui:
+    url: "../openapi/v3/api-docs" # url is relative to /swagger-ui/index.html so it also works with the /api prefix
+

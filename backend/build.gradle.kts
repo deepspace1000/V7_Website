@@ -4,7 +4,7 @@ import org.jooq.meta.jaxb.Logging
 plugins {
 	id("org.springframework.boot") version "3.2.2"
 	id("io.spring.dependency-management") version "1.1.4"
-	kotlin("jvm") version "1.8.22"
+	kotlin("jvm") version "1.9.22"
 	kotlin("plugin.spring") version "1.8.22"
 	id("nu.studer.jooq") version "8.2.3"
 

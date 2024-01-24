@@ -1,3 +1,9 @@
+import WebsiteUnderConstruction from '../components/WebsiteUnderConstruction.tsx';
+
 export default function LandingPage() {
-  return <div>Landing Page</div>;
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <WebsiteUnderConstruction />
+    </div>
+  );
 }

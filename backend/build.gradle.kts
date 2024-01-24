@@ -205,5 +205,12 @@ sonar {
 
 		property("sonar.exclusions", "src/main/kotlin-gen/jooq-gen/**/*")
 		property("sonar.cpd.exclusions", "src/main/**/*.sql")
+
+		property("sonar.issue.ignore.multicriteria", "duplicatedStringsInSql,setCallsInJooq")
+		property("sonar.issue.ignore.multicriteria.duplicatedStringsInSql.ruleKey", "plsql:S1192")
+		property("sonar.issue.ignore.multicriteria.duplicatedStringsInSql.resourceKey", "**/*.sql")
+		property("sonar.issue.ignore.multicriteria.setCallsInJooq.ruleKey", "kotlin:S6518")
+		property("sonar.issue.ignore.multicriteria.setCallsInJooq.resourceKey", "**/*Queries.kt")
+
 	}
 }

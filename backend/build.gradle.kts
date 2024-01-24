@@ -196,7 +196,7 @@ jooq {
 
 sonar {
 	properties {
-		property("sonar.projectKey", "v7-bauma_webseite")
+		property("sonar.projectKey", "v7-bauma_website-backend")
 		property("sonar.organization", "v7-bauma")
 		property("sonar.host.url", "https://sonarcloud.io")
 	}

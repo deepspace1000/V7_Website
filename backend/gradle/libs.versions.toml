@@ -25,7 +25,7 @@ mariadb-java-client = "org.mariadb.jdbc:mariadb-java-client:2.1.2"
 mockserver = { module = "org.testcontainers:mockserver" }
 mockserver-client-java = "org.mock-server:mockserver-client-java:5.15.0"
 mockito-kotlin = "org.mockito.kotlin:mockito-kotlin:5.2.1"
-org-testcontainers-postgresql = { module = "org.testcontainers:postgresql" }
+org-testcontainers-mariadb = { module = "org.testcontainers:mariadb" }
 pgpainless-core = "org.pgpainless:pgpainless-core:1.6.2"
 postgresql = "org.postgresql:postgresql:42.6.0"
 spring-boot-configuration-processor = "org.springframework.boot:spring-boot-configuration-processor:3.2.1"
@@ -55,3 +55,5 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-plugin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
 springframework-boot = { id = "org.springframework.boot", version.ref = "springboot" }
 version-catalog-update = "nl.littlerobots.version-catalog-update:0.8.1"
+sonarqube = "org.sonarqube:4.4.1.3373"
+

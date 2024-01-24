@@ -24,8 +24,6 @@ private val libraryBeans = beans {
             openApi.paths.values.flatMap { pathItem ->
                 pathItem.readOperations().map { operation ->
                     val headerParameter = HeaderParameter()
-                    headerParameter.name("SMC-CSRF-PROTECTION")
-                    headerParameter.example("1")
 
                     operation.addParametersItem(headerParameter)
                 }

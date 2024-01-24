@@ -1,3 +1,4 @@
+import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jooq.meta.jaxb.Logging
 import org.jooq.meta.jaxb.MatcherRule
@@ -13,14 +14,14 @@ plugins {
 	alias(libs.plugins.jooq)
 	alias(libs.plugins.diktat)
 	alias(libs.plugins.detekt)
+	jacoco
+	alias(libs.plugins.sonarqube)
+
 }
 
 group = "ch.v7"
 version = "0.0.1-SNAPSHOT"
-
-java {
-	sourceCompatibility = JavaVersion.VERSION_17
-}
+java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
 	mavenCentral()
@@ -53,6 +54,12 @@ dependencies {
 
 	testImplementation(libs.spring.boot.starter.test)
 	testImplementation(libs.spring.security.test)
+	testImplementation(libs.testcontainers.bom)
+	testImplementation(libs.org.testcontainers.mariadb)
+	testImplementation(libs.mockserver)
+	testImplementation(libs.mockserver.client.java)
+	testImplementation(libs.archunit)
+
 
 
 	runtimeOnly(libs.mariadb.java.client)
@@ -63,8 +70,8 @@ dependencies {
 
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
-		freeCompilerArgs += "-Xjsr305=strict"
-		jvmTarget = "17"
+		freeCompilerArgs = listOf("-Xjsr305=strict") // https://docs.gradle.org/current/userguide/kotlin_dsl.html#sec:kotlin_compiler_arguments
+		jvmTarget = JavaVersion.VERSION_17.toString()
 	}
 }
 
@@ -72,8 +79,15 @@ tasks.withType<Test> {
 	useJUnitPlatform()
 }
 
-tasks.bootBuildImage {
-	builder.set("paketobuildpacks/builder-jammy-base:latest")
+tasks.jacocoTestReport {
+	reports {
+		xml.required.set(true)
+		html.required.set(true)
+	}
+}
+
+tasks.test {
+	finalizedBy(tasks.jacocoTestReport)
 }
 
 detekt {
@@ -99,6 +113,13 @@ tasks.matching { it.name == LifecycleBasePlugin.CHECK_TASK_NAME }.first().apply 
 
 // Run detekt after diktat (diktat checks formatting errors that it can also fix)
 tasks.matching { it.name == "detekt" }.first().mustRunAfter("diktatCheck")
+
+// Required for detektMain not to pick up kotlin-gen
+tasks.withType<Detekt>().configureEach {
+	exclude {
+		it.file.absolutePath.contains("kotlin-gen/")
+	}
+}
 
 
 jooq {
@@ -168,9 +189,15 @@ jooq {
 						}
 					}
 				}
-
 			}
 		}
+	}
+}
 
+sonar {
+	properties {
+		property("sonar.projectKey", "v7-bauma_webseite")
+		property("sonar.organization", "v7-bauma")
+		property("sonar.host.url", "https://sonarcloud.io")
 	}
 }

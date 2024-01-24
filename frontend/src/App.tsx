@@ -1,8 +1,7 @@
-
+import { styled } from '@mui/material';
 import { Route, Routes } from 'react-router-dom';
 import Header from './components/Header.tsx';
 import LandingPage from './pages/LandingPage.tsx';
-import {styled} from "@mui/material";
 
 function App() {
   const Wrapper = styled('div')`

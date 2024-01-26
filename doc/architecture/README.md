@@ -40,20 +40,30 @@ erDiagram
         string phone
         string e-mail
         string password
-        string role
     }
-    user }|--|{ user_ressort: contains
     user_ressort {
         UUID user_id
         UUID ressort_id
     }
-    ressort }|--|{ user_ressort: contains
     ressort {
         UUID id
         string name 
         string description
     }
-  
+    role {
+        UUID id
+        string name 
+    }
+    user_role {
+        UUID user_id
+        UUID role_id
+    }
+    
+    
+    user }|--|{ user_ressort: contains
+    ressort }|--|{ user_ressort: contains
+    user }|--|{ user_role: contains
+    role }|--|{ user_role: contains
 ```
 
 ## Building Block View
@@ -61,6 +71,9 @@ erDiagram
 ## Runtime View
 
 ### Login and Authorization
+
+A successful Login will return a JWT access Token to validate further request.
+In addition, the E-Mail will be returned which will be used to authorize requests based on the user roles.
 
 ```mermaid
 sequenceDiagram
@@ -77,7 +90,8 @@ sequenceDiagram
     deactivate db
     be ->> be: Validate Password
     alt Authenticaion successful 
-        be -->> fe: JWT Access token
+        be ->> be: Create and Sign JWT-Token
+        be -->> fe: JWT Access token 
     else UserCredentials do not match
         be -->> fe: HTTP 403
     end
@@ -85,6 +99,38 @@ sequenceDiagram
     deactivate fe
 ```
 
+### Authenticating Requests
+
+Authentication consists of two steps. Check if signed JWT-Token is valid. 
+Check user permissions for resource.
+
+```mermaid
+sequenceDiagram
+    participant fe as Frontend
+    participant be as Backend
+    participant db as Database
+    
+    activate fe
+    fe ->> be: Request <br> headers: [JWT-TOKEN, USER-TOKEN]
+    activate be
+    be ->> be: Validate JWT-Token
+    alt Invalid JWT-Token
+        be -->> fe: HTTP 401
+    end
+    activate db
+    be ->> db: Fetch user Permissions
+    db -->> be: Returns user Permissions
+    deactivate db
+    be ->> be: Check User permissions for resource
+    alt Permission denied for resource  
+        be -->> fe: HTTP 403
+    end
+    be -->> fe: Return resources
+    
+    deactivate be
+    
+    deactivate fe
+```
 
 
 

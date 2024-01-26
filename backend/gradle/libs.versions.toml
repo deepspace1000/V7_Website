@@ -28,7 +28,7 @@ mockito-kotlin = "org.mockito.kotlin:mockito-kotlin:5.2.1"
 org-testcontainers-mariadb = { module = "org.testcontainers:mariadb" }
 pgpainless-core = "org.pgpainless:pgpainless-core:1.6.2"
 postgresql = "org.postgresql:postgresql:42.6.0"
-spring-boot-configuration-processor = "org.springframework.boot:spring-boot-configuration-processor:3.2.1"
+spring-boot-configuration-processor = "org.springframework.boot:spring-boot-configuration-processor:3.2.2"
 spring-boot-dependencies = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "springboot" }
 spring-boot-docker-compose = { module = "org.springframework.boot:spring-boot-docker-compose", version.ref = "springboot" }
 spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }

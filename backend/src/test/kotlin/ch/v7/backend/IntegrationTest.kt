@@ -20,7 +20,7 @@ import org.testcontainers.containers.MariaDBContainer
 import org.testcontainers.containers.MockServerContainer
 import org.testcontainers.utility.DockerImageName
 
-val mariaDbContainer = MariaDBContainer<Nothing>("mariadb-latest").apply {
+val mariaDbContainer = MariaDBContainer<Nothing>("mariadb:10.6.16").apply {
     withDatabaseName("backend")
     withUsername("backend")
     withPassword("backend")

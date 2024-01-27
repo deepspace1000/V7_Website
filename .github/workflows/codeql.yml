@@ -81,8 +81,8 @@ jobs:
     - if: matrix.language == 'java-kotlin'
       name: Build Kotlin
       run: |
-          echo "Run, Build Backend Application using script"
-          ./gradlew build
+        pwd
+        ./gradlew build
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3

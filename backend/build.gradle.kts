@@ -60,12 +60,13 @@ dependencies {
 	testImplementation(libs.mockserver.client.java)
 	testImplementation(libs.archunit)
 
-
+	testImplementation(libs.spring.webflux)
 
 	runtimeOnly(libs.mariadb.java.client)
 	jooqGenerator(libs.mariadb.java.client)
 	jooqGenerator(libs.jakarta.xml.bind.api)
 
+	detektPlugins(libs.detekt.formatting)
 }
 
 tasks.withType<KotlinCompile> {

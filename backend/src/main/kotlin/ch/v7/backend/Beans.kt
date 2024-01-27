@@ -4,7 +4,6 @@ import ch.v7.backend.security.securityBeans
 import ch.v7.backend.users.userBeans
 import io.swagger.v3.oas.models.OpenAPI
 import io.swagger.v3.oas.models.media.Schema
-import io.swagger.v3.oas.models.parameters.HeaderParameter
 import org.springdoc.core.customizers.OpenApiCustomizer
 import org.springframework.context.support.beans
 
@@ -21,13 +20,6 @@ private val libraryBeans = beans {
                             .forEach { entry -> entry.value.setNullable(true) }
                     }
                 }
-            openApi.paths.values.flatMap { pathItem ->
-                pathItem.readOperations().map { operation ->
-                    val headerParameter = HeaderParameter()
-
-                    operation.addParametersItem(headerParameter)
-                }
-            }
         }
     }
 }

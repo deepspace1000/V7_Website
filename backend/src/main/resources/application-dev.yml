@@ -3,10 +3,3 @@ spring:
     url: jdbc:mariadb://localhost:3306/backend
     username: backend
     password: backend
-
-springdoc:
-  api-docs:
-    path: "/openapi/v3/api-docs"
-  swagger-ui:
-    url: "../openapi/v3/api-docs" # url is relative to /swagger-ui/index.html so it also works with the /api prefix
-

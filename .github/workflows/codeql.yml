@@ -79,9 +79,8 @@ jobs:
       uses: github/codeql-action/autobuild@v3
 
     - if: matrix.language == 'java-kotlin'
-      name: Kotlin
-      run: |
-        echo: "kotlin is ignored"
+      name: Autobuild
+      uses: github/codeql-action/autobuild@v3
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3

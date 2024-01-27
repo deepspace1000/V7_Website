@@ -12,6 +12,6 @@ class AuthenticationUserDetailsService(private val userDao: UserDao) : UserDetai
         val user = userDao.fetchOne(USER.E_MAIL, username)
             ?: throw UsernameNotFoundException("User not found with username: $username")
 
-        return AuthUserDetails(user)
+        return MyUserDetails(user)
     }
 }

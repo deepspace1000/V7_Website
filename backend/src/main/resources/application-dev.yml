@@ -3,6 +3,7 @@ v7:
     access-token-expiration: 3600000
     refresh-token-expiration: 86400000
 
+
 springdoc:
   api-docs:
     path: "/openapi/v3/api-docs"

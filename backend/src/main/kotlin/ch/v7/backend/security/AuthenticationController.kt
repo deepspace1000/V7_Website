@@ -1,6 +1,7 @@
 package ch.v7.backend.security
 
 import ch.v7.backend.BackendProperties
+import ch.v7.backend.jwt.JwtUtils
 import jakarta.servlet.http.Cookie
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.http.ResponseEntity

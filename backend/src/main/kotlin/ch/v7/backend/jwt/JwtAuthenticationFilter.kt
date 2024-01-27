@@ -1,5 +1,6 @@
-package ch.v7.backend.security
+package ch.v7.backend.jwt
 
+import ch.v7.backend.security.AuthenticationUserDetailsService
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -12,7 +13,8 @@ import org.springframework.web.filter.OncePerRequestFilter
 private const val BEARER_TOKEN_INDEX = 7
 
 class JwtAuthenticationFilter(private val jwtUtils: JwtUtils,
-                              private val userDetailsService: AuthenticationUserDetailsService) :
+                              private val userDetailsService: AuthenticationUserDetailsService
+) :
     OncePerRequestFilter() {
     override fun doFilterInternal(
         request: HttpServletRequest,

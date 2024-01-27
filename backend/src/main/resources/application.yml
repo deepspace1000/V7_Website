@@ -6,4 +6,7 @@ spring:
     sql-dialect: mariadb
   datasource:
     driverClassName: org.mariadb.jdbc.Driver
-    
+
+v7:
+  test:
+    test: deep

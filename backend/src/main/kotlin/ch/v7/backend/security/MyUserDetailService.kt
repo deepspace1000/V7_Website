@@ -15,8 +15,6 @@ class MyUserDetailService(private val userDao: UserDao) :
         val user = userDao.fetchOne(USER.E_MAIL, token.principal as String)
             ?: throw UsernameNotFoundException("User not found for E-Mail ${token.principal}")
 
-        println("My user details service ${user.eMail}" )
         return MyUserDetails(user)
     }
 }
-

@@ -1,6 +1,7 @@
-package ch.v7.backend.security
+package ch.v7.backend.jwt
 
 import ch.v7.backend.BackendProperties
+import ch.v7.backend.security.LoginRequest
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.MalformedJwtException
 import io.jsonwebtoken.SignatureAlgorithm

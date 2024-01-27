@@ -11,5 +11,5 @@ data class BackendProperties @ConstructorBinding constructor(
 )
 
 data class TestProperties(
-    val test: String,
+    val test: String?,
 )

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="2024-01-27-user-roles" author="nils.rothe" dbms="mariadb">
+        <dropColumn tableName="t_user" columnName="user_role"/>
+        <createTable tableName="t_role">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="pk_role"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="t_user_role">
+            <column name="user_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="t_user_role" columnNames="user_id,role_id" constraintName="pk_user_role"/>
+        <addForeignKeyConstraint baseTableName="t_user_role" baseColumnNames="user_id" constraintName="fk_user_role_user" referencedTableName="t_user"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="t_user_role" baseColumnNames="role_id" constraintName="fk_user_role_role" referencedTableName="t_role"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>

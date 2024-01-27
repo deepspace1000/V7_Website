@@ -7,11 +7,9 @@ import org.springframework.boot.context.properties.bind.ConstructorBinding
 @ConfigurationProperties(prefix = "v7")
 data class BackendProperties @ConstructorBinding constructor(
     @NestedConfigurationProperty
-    val jwt: JwtProperties,
+    val test: TestProperties,
 )
 
-data class JwtProperties(
-    val key: String,
-    val accessTokenExpiration: Long,
-    val refreshTokenExpiration: Long,
+data class TestProperties(
+    val test: String,
 )

@@ -10,11 +10,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/user")
 class UserRessource {
-
     @PreAuthorize("@UserAccessAuthorizer.isUser(#root.authentication.principal)")
     @GetMapping
     fun test(@AuthenticationPrincipal principal: MyUserDetails): String = "hello"
-
-
-
 }

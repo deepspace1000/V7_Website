@@ -1,7 +1,5 @@
 package ch.v7.backend.security
 
-import ch.v7.backend.jwt.JwtAuthenticationFilter
-import ch.v7.backend.jwt.JwtUtils
 import ch.v7.backend.persistence.tables.daos.UserDao
 import org.springframework.context.support.beans
 import org.springframework.security.authentication.AuthenticationManager
@@ -10,7 +8,6 @@ import org.springframework.security.config.annotation.web.invoke
 import org.springframework.security.core.Authentication
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.preauth.RequestHeaderAuthenticationFilter
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter
 
 private const val MATCH_EVERYTHING = "/**"
 private const val LOGIN_PATH = "/auth/login"
@@ -23,13 +20,9 @@ val securityBeans = beans {
     bean<MyUserDetailService>()
     bean<UserAuthorizationFilter>()
     bean<UserDao>()
-    bean<AuthenticationController>()
     bean<AuthenticationManager> {
         AuthenticationManager { authentication: Authentication? -> authentication }
     }
-    bean<JwtUtils>()
-    bean<AuthenticationUserDetailsService>()
-    bean<JwtAuthenticationFilter>()
     bean<SecurityFilterChain> {
         val http = ref<HttpSecurity>()
 
@@ -42,8 +35,6 @@ val securityBeans = beans {
             }
 
             httpBasic { }
-
-            addFilterBefore<BasicAuthenticationFilter>(ref<JwtAuthenticationFilter>())
 
             addFilterBefore<RequestHeaderAuthenticationFilter>(ref<UserAuthorizationFilter>())
 

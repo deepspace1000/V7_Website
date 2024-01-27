@@ -10,3 +10,11 @@ spring:
 v7:
   test:
     test: deep
+
+management:
+  server:
+    port: 8090
+  endpoints:
+    web:
+      exposure:
+        include: "health"

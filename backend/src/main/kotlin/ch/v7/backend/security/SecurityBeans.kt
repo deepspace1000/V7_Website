@@ -13,6 +13,7 @@ private const val MATCH_EVERYTHING = "/**"
 private const val LOGIN_PATH = "/auth/login"
 private const val PATH_OPENAPI = "/openapi/*/api-docs"
 private const val PATH_SWAGGER = "/swagger-ui/index.html"
+private const val PATH_HEALTH = "/actuator/health"
 
 @Suppress("EMPTY_BLOCK_STRUCTURE_ERROR")
 val securityBeans = beans {
@@ -31,6 +32,7 @@ val securityBeans = beans {
                 authorize(PATH_OPENAPI, permitAll)
                 authorize(PATH_SWAGGER, permitAll)
                 authorize(LOGIN_PATH, permitAll)
+                authorize(PATH_HEALTH, permitAll)
                 authorize(MATCH_EVERYTHING, authenticated)
             }
 

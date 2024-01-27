@@ -2,6 +2,11 @@ v7:
   test:
     test: deep
 
+spring:
+  datasource:
+    url: jdbc:mariadb://localhost:3306/backend
+    username: backend
+    password: backend
 
 springdoc:
   api-docs:

@@ -50,7 +50,7 @@ class UserIntegrationTest: IntegrationTest() {
             .jsonPath("$.user.lastname")
             .isEqualTo("user")
             .jsonPath("$.role.[0].name")
-            .isEqualTo("Test Role")
+            .isEqualTo("ADMIN")
             .jsonPath("$.ressort.[0].name")
             .isEqualTo("Test Ressort")
             .jsonPath("$.ressort.[0].description")

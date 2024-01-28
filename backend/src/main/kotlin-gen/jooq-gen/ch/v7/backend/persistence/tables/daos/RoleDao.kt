@@ -7,6 +7,7 @@ package ch.v7.backend.persistence.tables.daos
 import ch.v7.backend.persistence.tables.RoleTable
 import ch.v7.backend.persistence.tables.pojos.Role
 import ch.v7.backend.persistence.tables.records.RoleRecord
+import ch.v7.backend.role.Roles
 
 import java.util.UUID
 
@@ -49,10 +50,10 @@ open class RoleDao(configuration: Configuration?) : DAOImpl<RoleRecord, Role, UU
      * Fetch records that have <code>name BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    fun fetchRangeOfName(lowerInclusive: String, upperInclusive: String): List<Role> = fetchRange(RoleTable.ROLE.NAME, lowerInclusive, upperInclusive)
+    fun fetchRangeOfName(lowerInclusive: Roles, upperInclusive: Roles): List<Role> = fetchRange(RoleTable.ROLE.NAME, lowerInclusive, upperInclusive)
 
     /**
      * Fetch records that have <code>name IN (values)</code>
      */
-    fun fetchByName(vararg values: String): List<Role> = fetch(RoleTable.ROLE.NAME, *values)
+    fun fetchByName(vararg values: Roles): List<Role> = fetch(RoleTable.ROLE.NAME, *values)
 }

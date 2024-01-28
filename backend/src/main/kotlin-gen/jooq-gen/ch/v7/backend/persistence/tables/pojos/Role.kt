@@ -4,6 +4,8 @@
 package ch.v7.backend.persistence.tables.pojos
 
 
+import ch.v7.backend.role.Roles
+
 import java.io.Serializable
 import java.util.UUID
 
@@ -14,7 +16,7 @@ import java.util.UUID
 @Suppress("UNCHECKED_CAST")
 data class Role(
     val id: UUID,
-    val name: String
+    val name: Roles
 ): Serializable {
 
     override fun equals(other: Any?): Boolean {

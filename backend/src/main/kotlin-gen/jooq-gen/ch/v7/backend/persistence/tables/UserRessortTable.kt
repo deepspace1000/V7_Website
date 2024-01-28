@@ -10,6 +10,7 @@ import ch.v7.backend.persistence.keys.FK_USER_RESSORT_USER
 import ch.v7.backend.persistence.keys.KEY_T_USER_RESSORT_PRIMARY
 import ch.v7.backend.persistence.tables.records.UserRessortRecord
 
+import java.util.UUID
 import java.util.function.Function
 
 import kotlin.collections.List
@@ -26,6 +27,7 @@ import org.jooq.Table
 import org.jooq.TableField
 import org.jooq.TableOptions
 import org.jooq.UniqueKey
+import org.jooq.impl.AutoConverter
 import org.jooq.impl.DSL
 import org.jooq.impl.Internal
 import org.jooq.impl.SQLDataType
@@ -68,12 +70,12 @@ open class UserRessortTable(
     /**
      * The column <code>backend.t_user_ressort.user_id</code>.
      */
-    val USER_ID: TableField<UserRessortRecord, String?> = createField(DSL.name("user_id"), SQLDataType.CHAR(36).nullable(false), this, "")
+    val USER_ID: TableField<UserRessortRecord, UUID?> = createField(DSL.name("user_id"), SQLDataType.CHAR(36).nullable(false), this, "", AutoConverter<String, UUID>(String::class.java, UUID::class.java))
 
     /**
      * The column <code>backend.t_user_ressort.ressort_id</code>.
      */
-    val RESSORT_ID: TableField<UserRessortRecord, String?> = createField(DSL.name("ressort_id"), SQLDataType.CHAR(36).nullable(false), this, "")
+    val RESSORT_ID: TableField<UserRessortRecord, UUID?> = createField(DSL.name("ressort_id"), SQLDataType.CHAR(36).nullable(false), this, "", AutoConverter<String, UUID>(String::class.java, UUID::class.java))
 
     private constructor(alias: Name, aliased: Table<UserRessortRecord>?): this(alias, null, null, aliased, null)
     private constructor(alias: Name, aliased: Table<UserRessortRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, aliased, parameters)
@@ -148,16 +150,16 @@ open class UserRessortTable(
     // -------------------------------------------------------------------------
     // Row2 type methods
     // -------------------------------------------------------------------------
-    override fun fieldsRow(): Row2<String?, String?> = super.fieldsRow() as Row2<String?, String?>
+    override fun fieldsRow(): Row2<UUID?, UUID?> = super.fieldsRow() as Row2<UUID?, UUID?>
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    fun <U> mapping(from: (String?, String?) -> U): SelectField<U> = convertFrom(Records.mapping(from))
+    fun <U> mapping(from: (UUID?, UUID?) -> U): SelectField<U> = convertFrom(Records.mapping(from))
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    fun <U> mapping(toType: Class<U>, from: (String?, String?) -> U): SelectField<U> = convertFrom(toType, Records.mapping(from))
+    fun <U> mapping(toType: Class<U>, from: (UUID?, UUID?) -> U): SelectField<U> = convertFrom(toType, Records.mapping(from))
 }

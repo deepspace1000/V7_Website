@@ -5,6 +5,7 @@ package ch.v7.backend.persistence.tables.pojos
 
 
 import java.io.Serializable
+import java.util.UUID
 
 
 /**
@@ -12,7 +13,7 @@ import java.io.Serializable
  */
 @Suppress("UNCHECKED_CAST")
 data class Ressort(
-    val id: String,
+    val id: UUID,
     val name: String,
     val description: String? = null
 ): Serializable {

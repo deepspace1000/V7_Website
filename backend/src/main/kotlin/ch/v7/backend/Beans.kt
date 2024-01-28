@@ -1,5 +1,7 @@
 package ch.v7.backend
 
+import ch.v7.backend.ressort.ressortBeans
+import ch.v7.backend.role.roleBeans
 import ch.v7.backend.security.securityBeans
 import ch.v7.backend.users.userBeans
 import io.swagger.v3.oas.models.OpenAPI
@@ -27,4 +29,6 @@ val beans = listOf(
     libraryBeans,
     securityBeans,
     userBeans,
+    ressortBeans,
+    roleBeans,
 )

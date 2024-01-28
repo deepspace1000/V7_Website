@@ -8,6 +8,7 @@ import ch.v7.backend.persistence.Backend
 import ch.v7.backend.persistence.keys.KEY_T_USER_PRIMARY
 import ch.v7.backend.persistence.tables.records.UserRecord
 
+import java.util.UUID
 import java.util.function.Function
 
 import org.jooq.Field
@@ -15,13 +16,14 @@ import org.jooq.ForeignKey
 import org.jooq.Name
 import org.jooq.Record
 import org.jooq.Records
-import org.jooq.Row7
+import org.jooq.Row6
 import org.jooq.Schema
 import org.jooq.SelectField
 import org.jooq.Table
 import org.jooq.TableField
 import org.jooq.TableOptions
 import org.jooq.UniqueKey
+import org.jooq.impl.AutoConverter
 import org.jooq.impl.DSL
 import org.jooq.impl.Internal
 import org.jooq.impl.SQLDataType
@@ -64,7 +66,7 @@ open class UserTable(
     /**
      * The column <code>backend.t_user.id</code>.
      */
-    val ID: TableField<UserRecord, String?> = createField(DSL.name("id"), SQLDataType.CHAR(36).nullable(false), this, "")
+    val ID: TableField<UserRecord, UUID?> = createField(DSL.name("id"), SQLDataType.CHAR(36).nullable(false), this, "", AutoConverter<String, UUID>(String::class.java, UUID::class.java))
 
     /**
      * The column <code>backend.t_user.first_name</code>.
@@ -85,11 +87,6 @@ open class UserTable(
      * The column <code>backend.t_user.e_mail</code>.
      */
     val E_MAIL: TableField<UserRecord, String?> = createField(DSL.name("e_mail"), SQLDataType.VARCHAR(255).nullable(false), this, "")
-
-    /**
-     * The column <code>backend.t_user.user_role</code>.
-     */
-    val USER_ROLE: TableField<UserRecord, String?> = createField(DSL.name("user_role"), SQLDataType.VARCHAR(255).nullable(false), this, "")
 
     /**
      * The column <code>backend.t_user.password</code>.
@@ -137,18 +134,18 @@ open class UserTable(
     override fun rename(name: Table<*>): UserTable = UserTable(name.getQualifiedName(), null)
 
     // -------------------------------------------------------------------------
-    // Row7 type methods
+    // Row6 type methods
     // -------------------------------------------------------------------------
-    override fun fieldsRow(): Row7<String?, String?, String?, String?, String?, String?, String?> = super.fieldsRow() as Row7<String?, String?, String?, String?, String?, String?, String?>
+    override fun fieldsRow(): Row6<UUID?, String?, String?, String?, String?, String?> = super.fieldsRow() as Row6<UUID?, String?, String?, String?, String?, String?>
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    fun <U> mapping(from: (String?, String?, String?, String?, String?, String?, String?) -> U): SelectField<U> = convertFrom(Records.mapping(from))
+    fun <U> mapping(from: (UUID?, String?, String?, String?, String?, String?) -> U): SelectField<U> = convertFrom(Records.mapping(from))
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    fun <U> mapping(toType: Class<U>, from: (String?, String?, String?, String?, String?, String?, String?) -> U): SelectField<U> = convertFrom(toType, Records.mapping(from))
+    fun <U> mapping(toType: Class<U>, from: (UUID?, String?, String?, String?, String?, String?) -> U): SelectField<U> = convertFrom(toType, Records.mapping(from))
 }

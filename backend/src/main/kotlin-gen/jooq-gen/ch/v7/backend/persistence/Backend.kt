@@ -5,7 +5,9 @@ package ch.v7.backend.persistence
 
 
 import ch.v7.backend.persistence.tables.RessortTable
+import ch.v7.backend.persistence.tables.RoleTable
 import ch.v7.backend.persistence.tables.UserRessortTable
+import ch.v7.backend.persistence.tables.UserRoleTable
 import ch.v7.backend.persistence.tables.UserTable
 
 import kotlin.collections.List
@@ -34,6 +36,11 @@ open class Backend : SchemaImpl("backend", DefaultCatalog.DEFAULT_CATALOG) {
     val RESSORT: RessortTable get() = RessortTable.RESSORT
 
     /**
+     * The table <code>backend.t_role</code>.
+     */
+    val ROLE: RoleTable get() = RoleTable.ROLE
+
+    /**
      * The table <code>backend.t_user</code>.
      */
     val USER: UserTable get() = UserTable.USER
@@ -43,11 +50,18 @@ open class Backend : SchemaImpl("backend", DefaultCatalog.DEFAULT_CATALOG) {
      */
     val USER_RESSORT: UserRessortTable get() = UserRessortTable.USER_RESSORT
 
+    /**
+     * The table <code>backend.t_user_role</code>.
+     */
+    val USER_ROLE: UserRoleTable get() = UserRoleTable.USER_ROLE
+
     override fun getCatalog(): Catalog = DefaultCatalog.DEFAULT_CATALOG
 
     override fun getTables(): List<Table<*>> = listOf(
         RessortTable.RESSORT,
+        RoleTable.ROLE,
         UserTable.USER,
-        UserRessortTable.USER_RESSORT
+        UserRessortTable.USER_RESSORT,
+        UserRoleTable.USER_ROLE
     )
 }

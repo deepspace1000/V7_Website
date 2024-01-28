@@ -5,11 +5,15 @@ package ch.v7.backend.persistence.keys
 
 
 import ch.v7.backend.persistence.tables.RessortTable
+import ch.v7.backend.persistence.tables.RoleTable
 import ch.v7.backend.persistence.tables.UserRessortTable
+import ch.v7.backend.persistence.tables.UserRoleTable
 import ch.v7.backend.persistence.tables.UserTable
 import ch.v7.backend.persistence.tables.records.RessortRecord
+import ch.v7.backend.persistence.tables.records.RoleRecord
 import ch.v7.backend.persistence.tables.records.UserRecord
 import ch.v7.backend.persistence.tables.records.UserRessortRecord
+import ch.v7.backend.persistence.tables.records.UserRoleRecord
 
 import org.jooq.ForeignKey
 import org.jooq.UniqueKey
@@ -23,8 +27,10 @@ import org.jooq.impl.Internal
 // -------------------------------------------------------------------------
 
 val KEY_T_RESSORT_PRIMARY: UniqueKey<RessortRecord> = Internal.createUniqueKey(RessortTable.RESSORT, DSL.name("KEY_t_ressort_PRIMARY"), arrayOf(RessortTable.RESSORT.ID), true)
+val KEY_T_ROLE_PRIMARY: UniqueKey<RoleRecord> = Internal.createUniqueKey(RoleTable.ROLE, DSL.name("KEY_t_role_PRIMARY"), arrayOf(RoleTable.ROLE.ID), true)
 val KEY_T_USER_PRIMARY: UniqueKey<UserRecord> = Internal.createUniqueKey(UserTable.USER, DSL.name("KEY_t_user_PRIMARY"), arrayOf(UserTable.USER.ID), true)
 val KEY_T_USER_RESSORT_PRIMARY: UniqueKey<UserRessortRecord> = Internal.createUniqueKey(UserRessortTable.USER_RESSORT, DSL.name("KEY_t_user_ressort_PRIMARY"), arrayOf(UserRessortTable.USER_RESSORT.USER_ID, UserRessortTable.USER_RESSORT.RESSORT_ID), true)
+val KEY_T_USER_ROLE_PRIMARY: UniqueKey<UserRoleRecord> = Internal.createUniqueKey(UserRoleTable.USER_ROLE, DSL.name("KEY_t_user_role_PRIMARY"), arrayOf(UserRoleTable.USER_ROLE.USER_ID, UserRoleTable.USER_ROLE.ROLE_ID), true)
 
 // -------------------------------------------------------------------------
 // FOREIGN KEY definitions
@@ -32,3 +38,5 @@ val KEY_T_USER_RESSORT_PRIMARY: UniqueKey<UserRessortRecord> = Internal.createUn
 
 val FK_USER_RESSORT_RESSORT: ForeignKey<UserRessortRecord, RessortRecord> = Internal.createForeignKey(UserRessortTable.USER_RESSORT, DSL.name("fk_user_ressort_ressort"), arrayOf(UserRessortTable.USER_RESSORT.RESSORT_ID), ch.v7.backend.persistence.keys.KEY_T_RESSORT_PRIMARY, arrayOf(RessortTable.RESSORT.ID), true)
 val FK_USER_RESSORT_USER: ForeignKey<UserRessortRecord, UserRecord> = Internal.createForeignKey(UserRessortTable.USER_RESSORT, DSL.name("fk_user_ressort_user"), arrayOf(UserRessortTable.USER_RESSORT.USER_ID), ch.v7.backend.persistence.keys.KEY_T_USER_PRIMARY, arrayOf(UserTable.USER.ID), true)
+val FK_USER_ROLE_ROLE: ForeignKey<UserRoleRecord, RoleRecord> = Internal.createForeignKey(UserRoleTable.USER_ROLE, DSL.name("fk_user_role_role"), arrayOf(UserRoleTable.USER_ROLE.ROLE_ID), ch.v7.backend.persistence.keys.KEY_T_ROLE_PRIMARY, arrayOf(RoleTable.ROLE.ID), true)
+val FK_USER_ROLE_USER: ForeignKey<UserRoleRecord, UserRecord> = Internal.createForeignKey(UserRoleTable.USER_ROLE, DSL.name("fk_user_role_user"), arrayOf(UserRoleTable.USER_ROLE.USER_ID), ch.v7.backend.persistence.keys.KEY_T_USER_PRIMARY, arrayOf(UserTable.USER.ID), true)

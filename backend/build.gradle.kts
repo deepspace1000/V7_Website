@@ -1,5 +1,6 @@
 import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jooq.meta.jaxb.ForcedType
 import org.jooq.meta.jaxb.Logging
 import org.jooq.meta.jaxb.MatcherRule
 import org.jooq.meta.jaxb.MatcherTransformType
@@ -141,6 +142,16 @@ jooq {
 						name = "org.jooq.meta.mariadb.MariaDBDatabase"
 						inputSchema = "backend"
 						excludes = "Databasechangelog|Databasechangeloglock"
+						forcedTypes.addAll(
+							listOf(
+								ForcedType().apply {
+									userType = "java.util.UUID"
+									isAutoConverter = true
+									includeExpression = ".*id.*"
+
+								},
+							)
+						)
 					}
 					generate.apply {
 						isDaos = true

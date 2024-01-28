@@ -5,6 +5,7 @@ package ch.v7.backend.persistence.tables.pojos
 
 
 import java.io.Serializable
+import java.util.UUID
 
 
 /**
@@ -12,12 +13,11 @@ import java.io.Serializable
  */
 @Suppress("UNCHECKED_CAST")
 data class User(
-    val id: String,
+    val id: UUID,
     val firstName: String,
     val lastName: String,
     val phone: String? = null,
     val eMail: String,
-    val userRole: String,
     val password: String
 ): Serializable {
 
@@ -43,8 +43,6 @@ data class User(
             return false
         if (this.eMail != o.eMail)
             return false
-        if (this.userRole != o.userRole)
-            return false
         if (this.password != o.password)
             return false
         return true
@@ -58,7 +56,6 @@ data class User(
         result = prime * result + this.lastName.hashCode()
         result = prime * result + (if (this.phone == null) 0 else this.phone.hashCode())
         result = prime * result + this.eMail.hashCode()
-        result = prime * result + this.userRole.hashCode()
         result = prime * result + this.password.hashCode()
         return result
     }
@@ -71,7 +68,6 @@ data class User(
         sb.append(", ").append(lastName)
         sb.append(", ").append(phone)
         sb.append(", ").append(eMail)
-        sb.append(", ").append(userRole)
         sb.append(", ").append(password)
 
         sb.append(")")

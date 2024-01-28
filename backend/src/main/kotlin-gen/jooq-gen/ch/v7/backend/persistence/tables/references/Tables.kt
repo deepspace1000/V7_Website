@@ -5,7 +5,9 @@ package ch.v7.backend.persistence.tables.references
 
 
 import ch.v7.backend.persistence.tables.RessortTable
+import ch.v7.backend.persistence.tables.RoleTable
 import ch.v7.backend.persistence.tables.UserRessortTable
+import ch.v7.backend.persistence.tables.UserRoleTable
 import ch.v7.backend.persistence.tables.UserTable
 
 
@@ -16,6 +18,11 @@ import ch.v7.backend.persistence.tables.UserTable
 val RESSORT: RessortTable = RessortTable.RESSORT
 
 /**
+ * The table <code>backend.t_role</code>.
+ */
+val ROLE: RoleTable = RoleTable.ROLE
+
+/**
  * The table <code>backend.t_user</code>.
  */
 val USER: UserTable = UserTable.USER
@@ -24,3 +31,8 @@ val USER: UserTable = UserTable.USER
  * The table <code>backend.t_user_ressort</code>.
  */
 val USER_RESSORT: UserRessortTable = UserRessortTable.USER_RESSORT
+
+/**
+ * The table <code>backend.t_user_role</code>.
+ */
+val USER_ROLE: UserRoleTable = UserRoleTable.USER_ROLE

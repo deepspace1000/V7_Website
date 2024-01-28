@@ -8,6 +8,7 @@ import ch.v7.backend.persistence.Backend
 import ch.v7.backend.persistence.keys.KEY_T_RESSORT_PRIMARY
 import ch.v7.backend.persistence.tables.records.RessortRecord
 
+import java.util.UUID
 import java.util.function.Function
 
 import org.jooq.Field
@@ -22,6 +23,7 @@ import org.jooq.Table
 import org.jooq.TableField
 import org.jooq.TableOptions
 import org.jooq.UniqueKey
+import org.jooq.impl.AutoConverter
 import org.jooq.impl.DSL
 import org.jooq.impl.Internal
 import org.jooq.impl.SQLDataType
@@ -64,7 +66,7 @@ open class RessortTable(
     /**
      * The column <code>backend.t_ressort.id</code>.
      */
-    val ID: TableField<RessortRecord, String?> = createField(DSL.name("id"), SQLDataType.CHAR(36).nullable(false), this, "")
+    val ID: TableField<RessortRecord, UUID?> = createField(DSL.name("id"), SQLDataType.CHAR(36).nullable(false), this, "", AutoConverter<String, UUID>(String::class.java, UUID::class.java))
 
     /**
      * The column <code>backend.t_ressort.name</code>.
@@ -119,16 +121,16 @@ open class RessortTable(
     // -------------------------------------------------------------------------
     // Row3 type methods
     // -------------------------------------------------------------------------
-    override fun fieldsRow(): Row3<String?, String?, String?> = super.fieldsRow() as Row3<String?, String?, String?>
+    override fun fieldsRow(): Row3<UUID?, String?, String?> = super.fieldsRow() as Row3<UUID?, String?, String?>
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    fun <U> mapping(from: (String?, String?, String?) -> U): SelectField<U> = convertFrom(Records.mapping(from))
+    fun <U> mapping(from: (UUID?, String?, String?) -> U): SelectField<U> = convertFrom(Records.mapping(from))
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    fun <U> mapping(toType: Class<U>, from: (String?, String?, String?) -> U): SelectField<U> = convertFrom(toType, Records.mapping(from))
+    fun <U> mapping(toType: Class<U>, from: (UUID?, String?, String?) -> U): SelectField<U> = convertFrom(toType, Records.mapping(from))
 }

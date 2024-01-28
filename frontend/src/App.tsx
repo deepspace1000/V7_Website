@@ -1,4 +1,4 @@
-import { styled } from '@mui/material';
+import { styled } from '@mui/joy';
 import { Route, Routes } from 'react-router-dom';
 import Header from './components/Header.tsx';
 import LandingPage from './pages/LandingPage.tsx';

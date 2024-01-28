@@ -7,6 +7,7 @@ package ch.v7.backend.persistence.tables
 import ch.v7.backend.persistence.Backend
 import ch.v7.backend.persistence.keys.KEY_T_ROLE_PRIMARY
 import ch.v7.backend.persistence.tables.records.RoleRecord
+import ch.v7.backend.role.Roles
 
 import java.util.UUID
 import java.util.function.Function
@@ -25,6 +26,7 @@ import org.jooq.TableOptions
 import org.jooq.UniqueKey
 import org.jooq.impl.AutoConverter
 import org.jooq.impl.DSL
+import org.jooq.impl.EnumConverter
 import org.jooq.impl.Internal
 import org.jooq.impl.SQLDataType
 import org.jooq.impl.TableImpl
@@ -71,7 +73,7 @@ open class RoleTable(
     /**
      * The column <code>backend.t_role.name</code>.
      */
-    val NAME: TableField<RoleRecord, String?> = createField(DSL.name("name"), SQLDataType.VARCHAR(255).nullable(false), this, "")
+    val NAME: TableField<RoleRecord, Roles?> = createField(DSL.name("name"), SQLDataType.VARCHAR(255).nullable(false), this, "", EnumConverter<String, Roles>(String::class.java, Roles::class.java))
 
     private constructor(alias: Name, aliased: Table<RoleRecord>?): this(alias, null, null, aliased, null)
     private constructor(alias: Name, aliased: Table<RoleRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, aliased, parameters)
@@ -116,16 +118,16 @@ open class RoleTable(
     // -------------------------------------------------------------------------
     // Row2 type methods
     // -------------------------------------------------------------------------
-    override fun fieldsRow(): Row2<UUID?, String?> = super.fieldsRow() as Row2<UUID?, String?>
+    override fun fieldsRow(): Row2<UUID?, Roles?> = super.fieldsRow() as Row2<UUID?, Roles?>
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    fun <U> mapping(from: (UUID?, String?) -> U): SelectField<U> = convertFrom(Records.mapping(from))
+    fun <U> mapping(from: (UUID?, Roles?) -> U): SelectField<U> = convertFrom(Records.mapping(from))
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    fun <U> mapping(toType: Class<U>, from: (UUID?, String?) -> U): SelectField<U> = convertFrom(toType, Records.mapping(from))
+    fun <U> mapping(toType: Class<U>, from: (UUID?, Roles?) -> U): SelectField<U> = convertFrom(toType, Records.mapping(from))
 }

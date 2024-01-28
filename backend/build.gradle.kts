@@ -148,8 +148,12 @@ jooq {
 									userType = "java.util.UUID"
 									isAutoConverter = true
 									includeExpression = ".*id.*"
-
 								},
+								ForcedType().apply {
+									userType = "ch.v7.backend.role.Roles"
+									isEnumConverter = true
+									includeExpression = "t_role.name"
+								}
 							)
 						)
 					}

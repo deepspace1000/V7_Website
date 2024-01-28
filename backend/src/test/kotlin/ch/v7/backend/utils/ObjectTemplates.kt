@@ -5,6 +5,7 @@ import ch.v7.backend.persistence.tables.pojos.Role
 import ch.v7.backend.persistence.tables.pojos.User
 import ch.v7.backend.persistence.tables.pojos.UserRessort
 import ch.v7.backend.persistence.tables.pojos.UserRole
+import ch.v7.backend.role.Roles
 import java.util.UUID
 
 val userTemplateId: UUID = UUID.fromString("40d8b918-8f80-4b92-a3f5-4548d7883c51")
@@ -48,7 +49,7 @@ fun createUserRessortFromTemplate(
 
 fun createRoleFromTemplate(
     id: UUID = roleTemplateId,
-    name: String = "Test Role"
+    name: Roles = Roles.ADMIN
 ) = Role(
     id = id,
     name = name,

@@ -2,8 +2,7 @@ spring:
   sql:
     init:
       mode: always
-      data-locations:
-        - 'classpath:db/seeds/user.sql'
+
   jooq:
     sql-dialect: mariadb
   datasource:

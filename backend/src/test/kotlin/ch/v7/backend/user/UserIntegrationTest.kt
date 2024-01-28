@@ -1,0 +1,59 @@
+package ch.v7.backend.user
+
+import ch.v7.backend.IntegrationTest
+import ch.v7.backend.utils.createRessortFromTemplate
+import ch.v7.backend.utils.createRoleFromTemplate
+import ch.v7.backend.utils.createUserFromTemplate
+import ch.v7.backend.utils.createUserRessortFromTemplate
+import ch.v7.backend.utils.createUserRoleFromTemplate
+import ch.v7.backend.utils.deleteAll
+import ch.v7.backend.utils.runInTransaction
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+
+class UserIntegrationTest: IntegrationTest() {
+    @BeforeEach
+    fun seedDatabase() {
+        transactionManager.runInTransaction {
+            userDao.insert(createUserFromTemplate())
+            ressortDao.insert(createRessortFromTemplate())
+            roleDao.insert(createRoleFromTemplate())
+            userRessortDao.insert(createUserRessortFromTemplate())
+            userRoleDao.insert(createUserRoleFromTemplate())
+        }
+
+    }
+
+    @AfterEach
+    fun deleteDatabaseSeed() {
+        transactionManager.runInTransaction {
+            userRoleDao.deleteAll()
+            userRessortDao.deleteAll()
+            roleDao.deleteAll()
+            ressortDao.deleteAll()
+            userDao.deleteAll()
+
+        }
+    }
+
+    @Test
+    fun `should return current user`() {
+        webClient.get()
+            .uri("/user/whoami")
+            .exchange()
+            .expectBody()
+            .jsonPath("$.user.email")
+            .isEqualTo("testuser@gmail.com")
+            .jsonPath("$.user.firstname")
+            .isEqualTo("test")
+            .jsonPath("$.user.lastname")
+            .isEqualTo("user")
+            .jsonPath("$.role.[0].name")
+            .isEqualTo("Test Role")
+            .jsonPath("$.ressort.[0].name")
+            .isEqualTo("Test Ressort")
+            .jsonPath("$.ressort.[0].description")
+            .isEqualTo("Test Ressort Description")
+    }
+}

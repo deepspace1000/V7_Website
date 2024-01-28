@@ -1,5 +1,10 @@
 package ch.v7.backend
 
+import ch.v7.backend.persistence.tables.daos.RessortDao
+import ch.v7.backend.persistence.tables.daos.RoleDao
+import ch.v7.backend.persistence.tables.daos.UserDao
+import ch.v7.backend.persistence.tables.daos.UserRessortDao
+import ch.v7.backend.persistence.tables.daos.UserRoleDao
 import java.util.stream.Stream
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeAll
@@ -20,7 +25,7 @@ import org.testcontainers.containers.MariaDBContainer
 import org.testcontainers.containers.MockServerContainer
 import org.testcontainers.utility.DockerImageName
 
-val mariaDbContainer = MariaDBContainer<Nothing>("mariadb:10.6.16").apply {
+val mariaDbContainer = MariaDBContainer<Nothing>("mariadb:11.2.2").apply {
     withDatabaseName("backend")
     withUsername("backend")
     withPassword("backend")
@@ -50,6 +55,21 @@ class IntegrationTest {
     @LocalServerPort
     lateinit var localServerPort: String
     lateinit var webClient: WebTestClient
+
+    @Autowired
+    lateinit var userDao: UserDao
+
+    @Autowired
+    lateinit var ressortDao: RessortDao
+
+    @Autowired
+    lateinit var roleDao: RoleDao
+
+    @Autowired
+    lateinit var userRessortDao: UserRessortDao
+
+    @Autowired
+    lateinit var userRoleDao: UserRoleDao
 
     @Autowired
     lateinit var transactionManager: PlatformTransactionManager

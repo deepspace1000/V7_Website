@@ -1,5 +1,6 @@
 package ch.v7.backend
 
+import ch.v7.backend.jwt.jwtBeans
 import ch.v7.backend.ressort.ressortBeans
 import ch.v7.backend.role.roleBeans
 import ch.v7.backend.security.securityBeans
@@ -36,4 +37,5 @@ val beans = listOf(
     roleBeans,
     userRessortBeans,
     userRoleBeans,
+    jwtBeans,
 )

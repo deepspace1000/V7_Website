@@ -12,7 +12,7 @@ class UserAuthorizationFilter(
 ) : RequestHeaderAuthenticationFilter() {
     init {
         setExceptionIfHeaderMissing(false)
-        setPrincipalRequestHeader("USER-LOGIN-NAME")
+        setPrincipalRequestHeader("Authorization")
         val provider = PreAuthenticatedAuthenticationProvider()
         provider.setPreAuthenticatedUserDetailsService(authorizingUserDetailService)
         setAuthenticationManager(ProviderManager(provider))

@@ -8,3 +8,13 @@ data class UserDto(
     val firstname: String,
     val lastname: String,
 )
+
+data class LoginDto(
+    val email: String,
+    val password: String,
+)
+
+data class LoginResponseDto(
+    val user: UserDto,
+    val token: String,
+)

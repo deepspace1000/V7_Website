@@ -1,4 +1,4 @@
-package ch.v7.backend.users
+package ch.v7.backend.user
 
 import java.util.UUID
 

@@ -3,9 +3,10 @@ package ch.v7.backend
 import ch.v7.backend.ressort.ressortBeans
 import ch.v7.backend.role.roleBeans
 import ch.v7.backend.security.securityBeans
+import ch.v7.backend.user.userBeans
 import ch.v7.backend.userressort.userRessortBeans
 import ch.v7.backend.userrole.userRoleBeans
-import ch.v7.backend.users.userBeans
+
 import io.swagger.v3.oas.models.OpenAPI
 import io.swagger.v3.oas.models.media.Schema
 import org.springdoc.core.customizers.OpenApiCustomizer

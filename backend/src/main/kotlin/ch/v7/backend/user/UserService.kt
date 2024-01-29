@@ -1,4 +1,4 @@
-package ch.v7.backend.users
+package ch.v7.backend.user
 
 import ch.v7.backend.common.EntityService
 import ch.v7.backend.persistence.tables.daos.UserDao

@@ -1,4 +1,4 @@
-package ch.v7.backend.users
+package ch.v7.backend.user
 
 import org.springframework.context.support.beans
 

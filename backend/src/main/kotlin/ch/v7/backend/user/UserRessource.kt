@@ -1,4 +1,4 @@
-package ch.v7.backend.users
+package ch.v7.backend.user
 
 import ch.v7.backend.ressort.RessortService
 import ch.v7.backend.role.RoleService

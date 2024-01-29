@@ -47,6 +47,7 @@ dependencies {
 	implementation(libs.springdoc.openapi.ui)
 	implementation(libs.springdoc.openapi.kotlin)
 	implementation(libs.jsonwebtoken)
+	implementation(libs.spring.boot.starter.oauth2.resource.server)
 
 
 	implementation(libs.jooq)

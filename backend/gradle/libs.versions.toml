@@ -50,7 +50,7 @@ jsonwebtoken = "io.jsonwebtoken:jjwt:0.2"
 [plugins]
 detekt = "io.gitlab.arturbosch.detekt:1.23.4"
 diktat = "org.cqfn.diktat.diktat-gradle-plugin:1.2.5"
-jooq = "nu.studer.jooq:8.2.1"
+jooq = "nu.studer.jooq:8.2.3"
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-plugin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
 springframework-boot = { id = "org.springframework.boot", version.ref = "springboot" }

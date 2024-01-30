@@ -70,7 +70,7 @@ erDiagram
 
 ## Runtime View
 
-### Login and Authorization
+### Login and Identification
 
 A successful Login will return a JWT access Token to validate further request.
 In addition, the E-Mail will be returned which will be used to authorize requests based on the user roles.
@@ -99,7 +99,7 @@ sequenceDiagram
     deactivate fe
 ```
 
-### Authenticating Requests
+### Authenticate requests and authorize user
 
 Authentication consists of two steps. Check if signed JWT-Token is valid. 
 Check user permissions for resource.
@@ -111,14 +111,15 @@ sequenceDiagram
     participant db as Database
     
     activate fe
-    fe ->> be: Request <br> headers: [JWT-TOKEN, USER-TOKEN]
+    fe ->> be: Request <br> headers: [Authorization: JWT-TOKEN]
     activate be
     be ->> be: Validate JWT-Token
     alt Invalid JWT-Token
         be -->> fe: HTTP 401
     end
-    activate db
+    be ->> be: decode jwt token
     be ->> db: Fetch user Permissions
+    activate db
     db -->> be: Returns user Permissions
     deactivate db
     be ->> be: Check User permissions for resource
@@ -126,9 +127,7 @@ sequenceDiagram
         be -->> fe: HTTP 403
     end
     be -->> fe: Return resources
-    
     deactivate be
-    
     deactivate fe
 ```
 

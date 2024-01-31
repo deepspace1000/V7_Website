@@ -8,6 +8,8 @@ spring:
     driverClassName: org.mariadb.jdbc.Driver
 
 v7:
+  jwt:
+    expirationInHours: 5
   test:
     test: deep
 

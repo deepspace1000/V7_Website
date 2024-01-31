@@ -8,8 +8,15 @@ import org.springframework.boot.context.properties.bind.ConstructorBinding
 data class BackendProperties @ConstructorBinding constructor(
     @NestedConfigurationProperty
     val test: TestProperties,
+    @NestedConfigurationProperty
+    val jwt: JwtProperties,
 )
 
 data class TestProperties(
     val test: String?,
+)
+
+data class JwtProperties(
+    val expirationInHours: Long,
+    val key: String,
 )

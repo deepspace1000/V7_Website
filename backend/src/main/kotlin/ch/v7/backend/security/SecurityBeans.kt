@@ -1,19 +1,11 @@
 package ch.v7.backend.security
 
-import ch.v7.backend.jwt.TokenService
 import ch.v7.backend.persistence.tables.daos.UserDao
 import org.springframework.context.support.beans
-import org.springframework.security.authentication.AuthenticationManager
-import org.springframework.security.authentication.ProviderManager
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.invoke
-import org.springframework.security.core.Authentication
-import org.springframework.security.core.authority.SimpleGrantedAuthority
-import org.springframework.security.oauth2.server.resource.InvalidBearerTokenException
-import org.springframework.security.oauth2.server.resource.authentication.BearerTokenAuthenticationToken
+import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.SecurityFilterChain
-import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider
 import org.springframework.security.web.authentication.preauth.RequestHeaderAuthenticationFilter
 
 private const val MATCH_EVERYTHING = "/**"
@@ -43,7 +35,10 @@ val securityBeans = beans {
             httpBasic { }
 
             addFilterBefore<RequestHeaderAuthenticationFilter>(ref<UserAuthorizationFilter>())
-            //oauth2ResourceServer { jwt {  } }
+
+            sessionManagement {
+                sessionCreationPolicy = SessionCreationPolicy.STATELESS
+            }
 
             csrf { disable() }
         }

@@ -3,6 +3,7 @@ package ch.v7.backend.user
 import ch.v7.backend.jwt.TokenService
 import ch.v7.backend.ressort.RessortService
 import ch.v7.backend.role.RoleService
+import ch.v7.backend.security.MyUserDetails
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.web.bind.annotation.GetMapping
@@ -23,32 +24,26 @@ class UserRessource(
     fun test(): String = "hello"
 
     @GetMapping("/whoami")
-    fun getSelf(): String? {
-        return "whoami"
-        /*
+    fun getSelf(@AuthenticationPrincipal principal: MyUserDetails): WhoamiDto {
         val user = userService.mapToDto(principal.user)
         return WhoamiDto(
             user = user,
             ressort = ressortService.getRessortsForUser(userId = user.id),
             role = roleService.getRolesForUserById(userId = user.id),
         )
-        */
     }
 
     @PostMapping("/login")
     fun login(@RequestBody loginDto: LoginDto): LoginResponseDto {
-        println(loginDto.email)
+        val user = userService.findUserByEmail(loginDto.email)
+            ?: throw UsernameNotFoundException("No user found for email")
 
-        val user = userService.findUserByEmail(loginDto.email) ?: throw UsernameNotFoundException("No user found for email")
-
-        if (user.eMail != loginDto.email){
+        if (user.eMail != loginDto.email) {
             throw UsernameNotFoundException("Wrong password")
         }
         return LoginResponseDto(
             user = userService.mapToDto(user),
-            token = tokenService.createToken(user)
+            token = tokenService.createJwtToken(user.id),
         )
-
-
     }
 }

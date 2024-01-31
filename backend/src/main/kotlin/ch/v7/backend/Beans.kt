@@ -1,5 +1,6 @@
 package ch.v7.backend
 
+import ch.v7.backend.common.V7ExceptionHandler
 import ch.v7.backend.jwt.jwtBeans
 import ch.v7.backend.ressort.ressortBeans
 import ch.v7.backend.role.roleBeans
@@ -29,8 +30,13 @@ private val libraryBeans = beans {
         }
     }
 }
+
+private val handlerBeans = beans {
+    bean<V7ExceptionHandler>()
+}
 val beans = listOf(
     libraryBeans,
+    handlerBeans,
     securityBeans,
     userBeans,
     ressortBeans,

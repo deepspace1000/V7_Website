@@ -1,39 +1,38 @@
 package ch.v7.backend.jwt
 
-import ch.v7.backend.persistence.tables.daos.UserDao
-import ch.v7.backend.persistence.tables.pojos.User
-import ch.v7.backend.user.UserService
+import ch.v7.backend.BackendProperties
+import ch.v7.backend.common.V7AuthorizationException
+
+import io.jsonwebtoken.Jwts
+
 import java.lang.Exception
 import java.time.Instant
 import java.time.temporal.ChronoUnit
+import java.util.Date
 import java.util.UUID
-import org.springframework.security.oauth2.jwt.JwsHeader
-import org.springframework.security.oauth2.jwt.JwtClaimsSet
-import org.springframework.security.oauth2.jwt.JwtDecoder
-import org.springframework.security.oauth2.jwt.JwtEncoder
-import org.springframework.security.oauth2.jwt.JwtEncoderParameters
+import javax.crypto.spec.SecretKeySpec
 
-class TokenService (private val userService: UserService, private val jwtEncoder: JwtEncoder, private val jwtDecoder: JwtDecoder){
-    fun createToken(user: User): String {
-        val jwsHeader = JwsHeader.with { "HS256" }.build()
-        val claims = JwtClaimsSet.builder()
-            .issuedAt(Instant.now())
-            .expiresAt(Instant.now().plus(30L, ChronoUnit.DAYS))
-            .subject(user.eMail)
-            .claim("userId", user.id)
-            .build()
-        return jwtEncoder.encode(JwtEncoderParameters.from(jwsHeader, claims)).tokenValue
-    }
+class TokenService(private val backendProperties: BackendProperties) {
+    fun createJwtToken(userId: UUID): String = Jwts.builder()
+        .subject(userId.toString())
+        .expiration(Date.from(Instant.now().plus(backendProperties.jwt.expirationInHours, ChronoUnit.HOURS)))
+        .signWith(backendProperties.jwt.key.toSecretKey())
+        .compact()
 
+    fun parseIdFromToken(jwt: String): UUID {
+        try {
+            val userId = Jwts.parser()
+                .verifyWith(backendProperties.jwt.key.toSecretKey())
+                .build()
+                .parseSignedClaims(jwt)
+                .payload
+                .subject
 
-    fun parseToken(token: String): User? {
-        return try {
-            val jwt = jwtDecoder.decode(token)
-            val email = jwt.subject as String
-            userService.findUserByEmail(email)
-            // find out how to do id
+            return UUID.fromString(userId)
         } catch (e: Exception) {
-            null
+            throw V7AuthorizationException("Invalid token")
         }
     }
+
+    private fun String.toSecretKey() = SecretKeySpec(this.toByteArray(), "HmacSHA256")
 }

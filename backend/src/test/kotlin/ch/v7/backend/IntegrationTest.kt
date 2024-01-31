@@ -1,10 +1,12 @@
 package ch.v7.backend
 
+import ch.v7.backend.jwt.TokenService
 import ch.v7.backend.persistence.tables.daos.RessortDao
 import ch.v7.backend.persistence.tables.daos.RoleDao
 import ch.v7.backend.persistence.tables.daos.UserDao
 import ch.v7.backend.persistence.tables.daos.UserRessortDao
 import ch.v7.backend.persistence.tables.daos.UserRoleDao
+import ch.v7.backend.utils.userTemplateId
 import java.util.stream.Stream
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeAll
@@ -72,16 +74,22 @@ class IntegrationTest {
     lateinit var userRoleDao: UserRoleDao
 
     @Autowired
+    lateinit var tokenService: TokenService
+
+    @Autowired
     lateinit var transactionManager: PlatformTransactionManager
 
     @Autowired
     lateinit var backendProperties: BackendProperties
+
+
 
     @BeforeEach
     fun beforeEach() {
         webClient =
             WebTestClient.bindToServer()
                 .baseUrl("http://localhost:$localServerPort")
+                .defaultHeaders { httpHeader -> httpHeader.setBearerAuth(tokenService.createJwtToken(userTemplateId)) }
                 .build()
     }
 

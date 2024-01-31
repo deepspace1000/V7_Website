@@ -47,7 +47,13 @@ dependencies {
 	implementation(libs.springdoc.openapi.ui)
 	implementation(libs.springdoc.openapi.kotlin)
 	implementation(libs.jsonwebtoken)
-	implementation(libs.spring.boot.starter.oauth2.resource.server)
+
+	runtimeOnly(libs.jsonwebtoken.impl)
+	runtimeOnly(libs.jsonwebtoken.orgjson) {
+		exclude(group = "org.json", module = "json")
+
+	}
+
 
 
 	implementation(libs.jooq)

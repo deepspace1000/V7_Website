@@ -5,7 +5,7 @@ springboot = "3.2.2"
 springdoc = "2.2.0"
 
 [libraries]
-detekt-formatting = "io.gitlab.arturbosch.detekt:detekt-formatting:1.23.4"
+detekt-formatting = "io.gitlab.arturbosch.detekt:detekt-formatting:1.23.5"
 jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin" }
 
 jackson-dataformat-csv = { module = "com.fasterxml.jackson.dataformat:jackson-dataformat-csv" }

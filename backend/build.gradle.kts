@@ -17,6 +17,8 @@ plugins {
 	alias(libs.plugins.detekt)
 	jacoco
 	alias(libs.plugins.sonarqube)
+	alias(libs.plugins.sentry)
+
 
 }
 
@@ -123,6 +125,13 @@ tasks.withType<Detekt>().configureEach {
 	}
 }
 
+sentry {
+	includeSourceContext = true
+
+	org = "v7-3i"
+	projectName = "java-spring-boot"
+	authToken = System.getenv("SENTRY_AUTH_TOKEN")
+}
 
 jooq {
 	configurations {

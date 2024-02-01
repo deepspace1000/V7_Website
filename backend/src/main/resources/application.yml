@@ -24,3 +24,7 @@ springdoc:
     path: "/openapi/v3/api-docs"
   swagger-ui:
     url: "../openapi/v3/api-docs" # url is relative to /swagger-ui/index.html so it also works with the /api prefix
+
+sentry:
+  dsn: https://408bfb7274c70c3a6b42775754e44502@o4506673577132032.ingest.sentry.io/4506673583947776
+

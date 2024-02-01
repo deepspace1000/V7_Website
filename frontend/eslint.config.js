@@ -7,15 +7,7 @@ import globals from 'globals';
 
 export default [
   {
-    ignores: [
-      'vite.config.ts',
-      'vitest.config.ts',
-      'eslint.config.js',
-      'dist',
-      'coverage',
-      'sentry-upload-source-maps.js',
-      '.yarn',
-    ],
+    ignores: ['vite.config.ts', 'vitest.config.ts', 'eslint.config.js', 'dist', 'coverage', '.yarn'],
   },
   reactRecommended,
   reactJsxRuntime,

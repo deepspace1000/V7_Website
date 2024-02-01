@@ -56,4 +56,5 @@ kotlin-plugin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref 
 springframework-boot = { id = "org.springframework.boot", version.ref = "springboot" }
 version-catalog-update = "nl.littlerobots.version-catalog-update:0.8.1"
 sonarqube = "org.sonarqube: 4.3.1.3277"
+sentry = "io.sentry.jvm.gradle:3.14.0"
 

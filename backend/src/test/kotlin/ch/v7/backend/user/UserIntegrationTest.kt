@@ -11,6 +11,7 @@ import ch.v7.backend.utils.runInTransaction
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.springframework.web.reactive.function.BodyInserters
 
 class UserIntegrationTest: IntegrationTest() {
     @BeforeEach
@@ -55,5 +56,47 @@ class UserIntegrationTest: IntegrationTest() {
             .isEqualTo("Test Ressort")
             .jsonPath("$.ressort.[0].description")
             .isEqualTo("Test Ressort Description")
+    }
+
+    @Test
+    fun `should not return data with invalid jws token`() {
+        webClient.get()
+            .uri("/user/whoami")
+            .headers { httpHeader -> httpHeader.setBearerAuth("WrongToken") }
+            .exchange()
+            .expectStatus()
+            .is5xxServerError
+
+    }
+
+    @Test
+    fun `should return jws token with right credentials`() {
+        val loginDto = LoginDto(
+            email = "testuser@gmail.com",
+            password = "test password",
+        )
+        webClient.post()
+            .uri("/user/login")
+            .body(BodyInserters.fromValue(loginDto))
+            .exchange()
+            .expectStatus()
+            .isOk
+            .expectBody()
+            .jsonPath("$.token")
+            .exists()
+    }
+
+    @Test
+    fun `should not return jws token with wrong credentials`() {
+        val loginDto = LoginDto(
+            email = "test@gmail.com",
+            password = "test",
+        )
+        webClient.post()
+            .uri("/user/login")
+            .body(BodyInserters.fromValue(loginDto))
+            .exchange()
+            .expectStatus()
+            .isUnauthorized
     }
 }

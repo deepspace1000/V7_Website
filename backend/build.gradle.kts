@@ -29,7 +29,6 @@ repositories {
 }
 
 dependencies {
-
 	// enforcedPlatform: use this version. Earlier declarations take precedence
 	implementation(enforcedPlatform(libs.kotlin.bom))
 	implementation(enforcedPlatform(libs.spring.framework.bom))
@@ -47,18 +46,15 @@ dependencies {
 	implementation(libs.springdoc.openapi.ui)
 	implementation(libs.springdoc.openapi.kotlin)
 	implementation(libs.jsonwebtoken)
-
-	runtimeOnly(libs.jsonwebtoken.impl)
-	runtimeOnly(libs.jsonwebtoken.orgjson) {
-		exclude(group = "org.json", module = "json")
-
-	}
-
-
-
 	implementation(libs.jooq)
 	implementation(libs.jooq.codegen)
 	implementation(libs.mariadb.java.client)
+
+	runtimeOnly(libs.jsonwebtoken.impl)
+	runtimeOnly(libs.jsonwebtoken.orgjson) {
+		exclude(group = "com.vaadin.external.google", module = "android-json")
+	}
+	runtimeOnly(libs.mariadb.java.client)
 
 	testImplementation(libs.spring.boot.starter.test)
 	testImplementation(libs.spring.security.test)
@@ -67,10 +63,9 @@ dependencies {
 	testImplementation(libs.mockserver)
 	testImplementation(libs.mockserver.client.java)
 	testImplementation(libs.archunit)
-
 	testImplementation(libs.spring.webflux)
 
-	runtimeOnly(libs.mariadb.java.client)
+
 	jooqGenerator(libs.mariadb.java.client)
 	jooqGenerator(libs.jakarta.xml.bind.api)
 

@@ -5,16 +5,21 @@
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
+import type { LoginDto } from '../models/LoginDto';
+import type { LoginResponseDto } from '../models/LoginResponseDto';
 import type { WhoamiDto } from '../models/WhoamiDto';
 export class UserRessourceService {
   /**
-   * @returns string OK
+   * @param requestBody
+   * @returns LoginResponseDto OK
    * @throws ApiError
    */
-  public static test(): CancelablePromise<string> {
+  public static login(requestBody: LoginDto): CancelablePromise<LoginResponseDto> {
     return __request(OpenAPI, {
-      method: 'GET',
-      url: '/user',
+      method: 'POST',
+      url: '/user/login',
+      body: requestBody,
+      mediaType: 'application/json',
     });
   }
   /**

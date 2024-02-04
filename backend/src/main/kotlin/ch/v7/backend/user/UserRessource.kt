@@ -20,9 +20,6 @@ class UserRessource(
     private val roleService: RoleService,
     private val tokenService: TokenService,
 ) {
-    @GetMapping
-    fun test(): String = "hello"
-
     @GetMapping("/whoami")
     fun getSelf(@AuthenticationPrincipal principal: MyUserDetails): WhoamiDto {
         val user = userService.mapToDto(principal.user)

@@ -32,7 +32,7 @@ val securityBeans = beans {
                 authorize(MATCH_EVERYTHING, authenticated)
             }
 
-            httpBasic { }
+            httpBasic { disable() }
 
             addFilterBefore<RequestHeaderAuthenticationFilter>(ref<UserAuthorizationFilter>())
 

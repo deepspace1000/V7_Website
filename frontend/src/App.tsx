@@ -1,7 +1,9 @@
 import { styled } from '@mui/joy';
 import { Route, Routes } from 'react-router-dom';
 import Header from './components/Header.tsx';
+import InternalSpace from './pages/InternalSpace.tsx';
 import LandingPage from './pages/LandingPage.tsx';
+import Login from './pages/Login.tsx';
 
 function App() {
   const Wrapper = styled('div')`
@@ -15,6 +17,8 @@ function App() {
       <Header />
       <Routes>
         <Route path={'/'} element={<LandingPage />} />
+        <Route path={'/login'} element={<Login />} />
+        <Route path={'/internal'} element={<InternalSpace />} />
       </Routes>
     </Wrapper>
   );

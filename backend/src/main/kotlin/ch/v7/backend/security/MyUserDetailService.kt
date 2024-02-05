@@ -1,7 +1,9 @@
 package ch.v7.backend.security
 
+import ch.v7.backend.common.V7AuthorizationException
 import ch.v7.backend.jwt.TokenService
 import ch.v7.backend.persistence.tables.daos.UserDao
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException
 import org.springframework.security.core.userdetails.AuthenticationUserDetailsService
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UsernameNotFoundException
@@ -13,11 +15,15 @@ class MyUserDetailService(private val userDao: UserDao, private val tokenService
     override fun loadUserDetails(token: PreAuthenticatedAuthenticationToken?): UserDetails {
         token ?: throw UsernameNotFoundException("No token received")
 
-        val tokenUser = tokenService.parseIdFromToken(token.principal.toString().substring(TOKEN_SUBSTRING))
+        try {
+            val tokenUser = tokenService.parseIdFromToken(token.principal.toString().substring(TOKEN_SUBSTRING))
 
-        val user = userDao.fetchOneById(tokenUser)
-            ?: throw UsernameNotFoundException("User not found for E-Mail ${token.principal}")
+            val user = userDao.fetchOneById(tokenUser)
+                ?: throw UsernameNotFoundException("User not found for E-Mail ${token.principal}")
 
-        return MyUserDetails(user)
+            return MyUserDetails(user)
+        } catch (e: V7AuthorizationException) {
+            throw AuthenticationCredentialsNotFoundException("Invalid token", e)
+        }
     }
 }

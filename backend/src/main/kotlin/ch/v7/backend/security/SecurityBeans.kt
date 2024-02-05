@@ -20,6 +20,7 @@ val securityBeans = beans {
     bean<MyUserDetailService>()
     bean<UserAuthorizationFilter>()
     bean<UserDao>()
+    bean<CustomAuthenticationEntryPoint>()
     bean<SecurityFilterChain> {
         val http = ref<HttpSecurity>()
 
@@ -41,6 +42,10 @@ val securityBeans = beans {
             }
 
             csrf { disable() }
+
+            exceptionHandling {
+                authenticationEntryPoint = ref<CustomAuthenticationEntryPoint>()
+            }
         }
 
         http.build()

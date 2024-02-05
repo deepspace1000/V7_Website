@@ -65,7 +65,7 @@ class UserIntegrationTest: IntegrationTest() {
             .headers { httpHeader -> httpHeader.setBearerAuth("WrongToken") }
             .exchange()
             .expectStatus()
-            .is5xxServerError
+            .isUnauthorized
 
     }
 

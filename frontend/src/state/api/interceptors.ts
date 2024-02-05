@@ -1,11 +1,11 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 axios.interceptors.response.use(
   (response) => {
     return response;
   },
-  (error) => {
-    if (error.response.status === 401 && error.response.data === 'Invalid Token') {
+  (error: AxiosError) => {
+    if (error.response && error.response.status === 401 && error.response.data === 'Invalid Token') {
       localStorage.removeItem('token');
       window.location.href = '/login';
     }

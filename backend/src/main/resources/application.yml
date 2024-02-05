@@ -10,8 +10,6 @@ spring:
 v7:
   jwt:
     expirationInHours: 5
-  test:
-    test: deep
 
 management:
   server:

@@ -15,6 +15,5 @@ data class LoginDto(
 )
 
 data class LoginResponseDto(
-    val user: UserDto,
     val token: String,
 )

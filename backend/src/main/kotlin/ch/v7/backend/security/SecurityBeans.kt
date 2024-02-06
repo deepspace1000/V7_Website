@@ -20,6 +20,7 @@ val securityBeans = beans {
     bean<MyUserDetailService>()
     bean<UserAuthorizationFilter>()
     bean<UserDao>()
+    bean<PasswordService>()
     bean<CustomAuthenticationEntryPoint>()
     bean<SecurityFilterChain> {
         val http = ref<HttpSecurity>()

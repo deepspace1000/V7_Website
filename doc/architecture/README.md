@@ -93,7 +93,7 @@ sequenceDiagram
         be ->> be: Create and Sign JWT-Token
         be -->> fe: JWT Access token 
     else UserCredentials do not match
-        be -->> fe: HTTP 403
+        be -->> fe: HTTP 401
     end
     deactivate be
     deactivate fe

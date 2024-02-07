@@ -46,7 +46,7 @@ springdoc-openapi-ui = { module = "org.springdoc:springdoc-openapi-starter-webmv
 testcontainers-bom = "org.testcontainers:testcontainers-bom:1.19.0"
 archunit = "com.tngtech.archunit:archunit-junit5:1.1.0"
 jsonwebtoken = "io.jsonwebtoken:jjwt-api:0.12.5"
-jsonwebtoken-impl = "io.jsonwebtoken:jjwt-impl:0.12.4"
+jsonwebtoken-impl = "io.jsonwebtoken:jjwt-impl:0.12.5"
 jsonwebtoken-orgjson = "io.jsonwebtoken:jjwt-orgjson:0.12.4"
 
 [plugins]

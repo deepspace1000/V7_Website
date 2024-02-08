@@ -50,7 +50,7 @@ jsonwebtoken-impl = "io.jsonwebtoken:jjwt-impl:0.12.5"
 jsonwebtoken-orgjson = "io.jsonwebtoken:jjwt-orgjson:0.12.4"
 
 [plugins]
-detekt = "io.gitlab.arturbosch.detekt:1.23.4"
+detekt = "io.gitlab.arturbosch.detekt:1.23.5"
 diktat = "org.cqfn.diktat.diktat-gradle-plugin:1.2.5"
 jooq = "nu.studer.jooq:9.0"
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

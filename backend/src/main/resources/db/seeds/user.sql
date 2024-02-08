@@ -1,7 +1,7 @@
 insert into t_user (id, first_name, last_name, phone, e_mail, password)
 values
-    ('c3bc1203-ec7f-428d-a4aa-01c0c3b40abd', 'test', 'user', '0773434334', 'testuser@gmail.com', '$2a$10$IVLBCJ8ed8zh1aYeui6Nwu4uauH/Uwtrdkd5PshFdCP9Yo0U2ltjK' ), /*test*/
-    ('c3bc1203-ec7f-428d-a4aa-01c0c3b40a34', 'globi', 'test', '0773434334', 'globi@gmail.com', '$2a$10$Hag7eyYH6R8mlUYFcKidJ.onQ1C10HvwF9Mguy22RSHLTnOPI6Sq6' ) /*test2*/
+    ('c3bc1203-ec7f-428d-a4aa-01c0c3b40abd', 'test', 'user', '0773434334', 'testuser@gmail.com', '$2a$10$IVLBCJ8ed8zh1aYeui6Nwu4uauH/Uwtrdkd5PshFdCP9Yo0U2ltjK' ), -- test
+    ('c3bc1203-ec7f-428d-a4aa-01c0c3b40a34', 'globi', 'test', '0773434334', 'globi@gmail.com', '$2a$10$Hag7eyYH6R8mlUYFcKidJ.onQ1C10HvwF9Mguy22RSHLTnOPI6Sq6' ) -- test2
 ON DUPLICATE KEY UPDATE id = id;
 
 

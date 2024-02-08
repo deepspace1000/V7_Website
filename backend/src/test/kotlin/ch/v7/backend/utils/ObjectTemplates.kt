@@ -19,7 +19,7 @@ fun createUserFromTemplate(
     lastName: String = "user",
     phone: String = "0422344323",
     eMail: String = "testuser@gmail.com",
-    password: String = "test password"
+    password: String = "\$2a\$10\$IVLBCJ8ed8zh1aYeui6Nwu4uauH/Uwtrdkd5PshFdCP9Yo0U2ltjK",
 ) = User(
     id = id,
     firstName = firstName,

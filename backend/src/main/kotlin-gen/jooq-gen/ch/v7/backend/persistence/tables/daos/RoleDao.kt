@@ -14,7 +14,9 @@ import java.util.UUID
 import kotlin.collections.List
 
 import org.jooq.Configuration
+import org.jooq.impl.AutoConverter
 import org.jooq.impl.DAOImpl
+import org.jooq.impl.EnumConverter
 
 
 /**

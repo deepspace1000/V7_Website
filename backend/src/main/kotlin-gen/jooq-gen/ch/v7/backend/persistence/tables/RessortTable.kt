@@ -5,20 +5,29 @@ package ch.v7.backend.persistence.tables
 
 
 import ch.v7.backend.persistence.Backend
+import ch.v7.backend.persistence.keys.FK_USER_RESSORT_RESSORT
 import ch.v7.backend.persistence.keys.KEY_T_RESSORT_PRIMARY
+import ch.v7.backend.persistence.tables.UserRessortTable.TUserRessortPath
+import ch.v7.backend.persistence.tables.UserTable.TUserPath
 import ch.v7.backend.persistence.tables.records.RessortRecord
 
 import java.util.UUID
-import java.util.function.Function
 
+import kotlin.collections.Collection
+
+import org.jooq.Condition
 import org.jooq.Field
 import org.jooq.ForeignKey
+import org.jooq.InverseForeignKey
 import org.jooq.Name
+import org.jooq.Path
+import org.jooq.PlainSQL
+import org.jooq.QueryPart
 import org.jooq.Record
-import org.jooq.Records
-import org.jooq.Row3
+import org.jooq.SQL
 import org.jooq.Schema
-import org.jooq.SelectField
+import org.jooq.Select
+import org.jooq.Stringly
 import org.jooq.Table
 import org.jooq.TableField
 import org.jooq.TableOptions
@@ -36,19 +45,23 @@ import org.jooq.impl.TableImpl
 @Suppress("UNCHECKED_CAST")
 open class RessortTable(
     alias: Name,
-    child: Table<out Record>?,
-    path: ForeignKey<out Record, RessortRecord>?,
+    path: Table<out Record>?,
+    childPath: ForeignKey<out Record, RessortRecord>?,
+    parentPath: InverseForeignKey<out Record, RessortRecord>?,
     aliased: Table<RessortRecord>?,
-    parameters: Array<Field<*>?>?
+    parameters: Array<Field<*>?>?,
+    where: Condition?
 ): TableImpl<RessortRecord>(
     alias,
     Backend.BACKEND,
-    child,
     path,
+    childPath,
+    parentPath,
     aliased,
     parameters,
     DSL.comment(""),
-    TableOptions.table()
+    TableOptions.table(),
+    where,
 ) {
     companion object {
 
@@ -78,8 +91,9 @@ open class RessortTable(
      */
     val DESCRIPTION: TableField<RessortRecord, String?> = createField(DSL.name("description"), SQLDataType.VARCHAR(255).defaultValue(DSL.field(DSL.raw("NULL"), SQLDataType.VARCHAR)), this, "")
 
-    private constructor(alias: Name, aliased: Table<RessortRecord>?): this(alias, null, null, aliased, null)
-    private constructor(alias: Name, aliased: Table<RessortRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, aliased, parameters)
+    private constructor(alias: Name, aliased: Table<RessortRecord>?): this(alias, null, null, null, aliased, null, null)
+    private constructor(alias: Name, aliased: Table<RessortRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
+    private constructor(alias: Name, aliased: Table<RessortRecord>?, where: Condition): this(alias, null, null, null, aliased, null, where)
 
     /**
      * Create an aliased <code>backend.t_ressort</code> table reference
@@ -96,12 +110,46 @@ open class RessortTable(
      */
     constructor(): this(DSL.name("t_ressort"), null)
 
-    constructor(child: Table<out Record>, key: ForeignKey<out Record, RessortRecord>): this(Internal.createPathAlias(child, key), child, key, RESSORT, null)
+    constructor(path: Table<out Record>, childPath: ForeignKey<out Record, RessortRecord>?, parentPath: InverseForeignKey<out Record, RessortRecord>?): this(Internal.createPathAlias(path, childPath, parentPath), path, childPath, parentPath, RESSORT, null, null)
+
+    /**
+     * A subtype implementing {@link Path} for simplified path-based joins.
+     */
+    open class TRessortPath : RessortTable, Path<RessortRecord> {
+        constructor(path: Table<out Record>, childPath: ForeignKey<out Record, RessortRecord>?, parentPath: InverseForeignKey<out Record, RessortRecord>?): super(path, childPath, parentPath)
+        private constructor(alias: Name, aliased: Table<RessortRecord>): super(alias, aliased)
+        override fun `as`(alias: String): TRessortPath = TRessortPath(DSL.name(alias), this)
+        override fun `as`(alias: Name): TRessortPath = TRessortPath(alias, this)
+        override fun `as`(alias: Table<*>): TRessortPath = TRessortPath(alias.qualifiedName, this)
+    }
     override fun getSchema(): Schema? = if (aliased()) null else Backend.BACKEND
     override fun getPrimaryKey(): UniqueKey<RessortRecord> = KEY_T_RESSORT_PRIMARY
+
+    private lateinit var _tUserRessort: TUserRessortPath
+
+    /**
+     * Get the implicit to-many join path to the
+     * <code>backend.t_user_ressort</code> table
+     */
+    fun tUserRessort(): TUserRessortPath {
+        if (!this::_tUserRessort.isInitialized)
+            _tUserRessort = TUserRessortPath(this, null, FK_USER_RESSORT_RESSORT.inverseKey)
+
+        return _tUserRessort;
+    }
+
+    val tUserRessort: TUserRessortPath
+        get(): TUserRessortPath = tUserRessort()
+
+    /**
+     * Get the implicit many-to-many join path to the
+     * <code>backend.t_user</code> table
+     */
+    val tUser: TUserPath
+        get(): TUserPath = tUserRessort().tUser()
     override fun `as`(alias: String): RessortTable = RessortTable(DSL.name(alias), this)
     override fun `as`(alias: Name): RessortTable = RessortTable(alias, this)
-    override fun `as`(alias: Table<*>): RessortTable = RessortTable(alias.getQualifiedName(), this)
+    override fun `as`(alias: Table<*>): RessortTable = RessortTable(alias.qualifiedName, this)
 
     /**
      * Rename this table
@@ -116,21 +164,55 @@ open class RessortTable(
     /**
      * Rename this table
      */
-    override fun rename(name: Table<*>): RessortTable = RessortTable(name.getQualifiedName(), null)
-
-    // -------------------------------------------------------------------------
-    // Row3 type methods
-    // -------------------------------------------------------------------------
-    override fun fieldsRow(): Row3<UUID?, String?, String?> = super.fieldsRow() as Row3<UUID?, String?, String?>
+    override fun rename(name: Table<*>): RessortTable = RessortTable(name.qualifiedName, null)
 
     /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     * Create an inline derived table from this table
      */
-    fun <U> mapping(from: (UUID?, String?, String?) -> U): SelectField<U> = convertFrom(Records.mapping(from))
+    override fun where(condition: Condition): RessortTable = RessortTable(qualifiedName, if (aliased()) this else null, condition)
 
     /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Class,
-     * Function)}.
+     * Create an inline derived table from this table
      */
-    fun <U> mapping(toType: Class<U>, from: (UUID?, String?, String?) -> U): SelectField<U> = convertFrom(toType, Records.mapping(from))
+    override fun where(conditions: Collection<Condition>): RessortTable = where(DSL.and(conditions))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    override fun where(vararg conditions: Condition): RessortTable = where(DSL.and(*conditions))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    override fun where(condition: Field<Boolean?>): RessortTable = where(DSL.condition(condition))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @PlainSQL override fun where(condition: SQL): RessortTable = where(DSL.condition(condition))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @PlainSQL override fun where(@Stringly.SQL condition: String): RessortTable = where(DSL.condition(condition))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @PlainSQL override fun where(@Stringly.SQL condition: String, vararg binds: Any?): RessortTable = where(DSL.condition(condition, *binds))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @PlainSQL override fun where(@Stringly.SQL condition: String, vararg parts: QueryPart): RessortTable = where(DSL.condition(condition, *parts))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    override fun whereExists(select: Select<*>): RessortTable = where(DSL.exists(select))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    override fun whereNotExists(select: Select<*>): RessortTable = where(DSL.notExists(select))
 }

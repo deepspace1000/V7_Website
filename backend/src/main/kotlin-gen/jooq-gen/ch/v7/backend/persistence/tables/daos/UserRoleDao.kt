@@ -14,6 +14,7 @@ import kotlin.collections.List
 
 import org.jooq.Configuration
 import org.jooq.Record2
+import org.jooq.impl.AutoConverter
 import org.jooq.impl.DAOImpl
 
 

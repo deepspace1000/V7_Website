@@ -1,7 +1,7 @@
 name: v7-backend
 services:
   backend-mariadb:
-    image: mariadb:latest
+    image: mariadb:10
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: backend

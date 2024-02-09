@@ -6,6 +6,8 @@ spring:
     sql-dialect: mariadb
   datasource:
     driverClassName: org.mariadb.jdbc.Driver
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
 
 v7:
   jwt:

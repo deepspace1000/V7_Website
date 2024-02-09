@@ -30,8 +30,17 @@ This Application is for the [Jugendarbeit Bauma](https://v7-bauma.ch) project ca
 
 ### Prerequisites
 * [Docker](https://docs.docker.com/desktop/install/mac-install/)
+* [SDKMAN!](https://sdkman.io/install)
+* [nvm](https://github.com/nvm-sh/nvm)
 
 ### Setup
+
+```shell
+nvm use
+sdk env install
+corepack enable
+corepack prepare yarn@stable --activate
+```
 
 #### Backend
 

@@ -37,8 +37,13 @@ jobs:
           java-version: '21.0.2'
           distribution: 'temurin'
 
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@v2
+
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
+        with:
+          dependency-graph: generate-and-submit
 
       - name: Build backend
         run: ./gradlew build
@@ -57,7 +62,7 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
 
-      - name: Build and analyze
+      - name: Run Sonar scan
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_BACKEND }}

@@ -22,7 +22,7 @@ plugins {
 
 group = "ch.v7"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_17
+java.sourceCompatibility = JavaVersion.VERSION_21
 
 repositories {
 	mavenCentral()
@@ -75,7 +75,7 @@ dependencies {
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict") // https://docs.gradle.org/current/userguide/kotlin_dsl.html#sec:kotlin_compiler_arguments
-		jvmTarget = JavaVersion.VERSION_17.toString()
+		jvmTarget = JavaVersion.VERSION_21.toString()
 	}
 }
 
@@ -86,7 +86,7 @@ tasks.withType<Test> {
 tasks.jacocoTestReport {
 	reports {
 		xml.required.set(true)
-		html.required.set(true)
+		html.required.set(false)
 	}
 }
 

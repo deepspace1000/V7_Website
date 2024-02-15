@@ -25,12 +25,12 @@ open class DefaultCatalog : CatalogImpl("") {
     }
 
     /**
-     * The schema <code>backend</code>.
+     * The schema <code>v7_backend</code>.
      */
-    val BACKEND: Backend get(): Backend = Backend.BACKEND
+    val V7_BACKEND: V7Backend get(): V7Backend = V7Backend.V7_BACKEND
 
     override fun getSchemas(): List<Schema> = listOf(
-        Backend.BACKEND
+        V7Backend.V7_BACKEND
     )
 
     /**

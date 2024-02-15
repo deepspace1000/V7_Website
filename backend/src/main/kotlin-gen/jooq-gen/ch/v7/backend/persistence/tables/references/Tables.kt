@@ -13,26 +13,26 @@ import ch.v7.backend.persistence.tables.UserTable
 
 
 /**
- * The table <code>backend.t_ressort</code>.
+ * The table <code>v7_backend.t_ressort</code>.
  */
 val RESSORT: RessortTable = RessortTable.RESSORT
 
 /**
- * The table <code>backend.t_role</code>.
+ * The table <code>v7_backend.t_role</code>.
  */
 val ROLE: RoleTable = RoleTable.ROLE
 
 /**
- * The table <code>backend.t_user</code>.
+ * The table <code>v7_backend.t_user</code>.
  */
 val USER: UserTable = UserTable.USER
 
 /**
- * The table <code>backend.t_user_ressort</code>.
+ * The table <code>v7_backend.t_user_ressort</code>.
  */
 val USER_RESSORT: UserRessortTable = UserRessortTable.USER_RESSORT
 
 /**
- * The table <code>backend.t_user_role</code>.
+ * The table <code>v7_backend.t_user_role</code>.
  */
 val USER_ROLE: UserRoleTable = UserRoleTable.USER_ROLE

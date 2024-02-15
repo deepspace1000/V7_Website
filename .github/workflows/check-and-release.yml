@@ -189,6 +189,3 @@ jobs:
           user_email: 'nilsrothe05@icloud.com'
           user_name: 'deepspace1000'
           commit_message: 'Update docker image version to the latest tag: ${{ steps.tag.outputs.TAG }}'
-
-
-

@@ -28,7 +28,7 @@ import org.testcontainers.containers.MockServerContainer
 import org.testcontainers.utility.DockerImageName
 
 val mariaDbContainer = MariaDBContainer<Nothing>("mariadb:11.2.2").apply {
-    withDatabaseName("backend")
+    withDatabaseName("v7_backend")
     withUsername("backend")
     withPassword("backend")
 }

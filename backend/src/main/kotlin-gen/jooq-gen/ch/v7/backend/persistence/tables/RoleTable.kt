@@ -4,7 +4,7 @@
 package ch.v7.backend.persistence.tables
 
 
-import ch.v7.backend.persistence.Backend
+import ch.v7.backend.persistence.V7Backend
 import ch.v7.backend.persistence.keys.FK_USER_ROLE_ROLE
 import ch.v7.backend.persistence.keys.KEY_T_ROLE_PRIMARY
 import ch.v7.backend.persistence.tables.UserRoleTable.TUserRolePath
@@ -55,7 +55,7 @@ open class RoleTable(
     where: Condition?
 ): TableImpl<RoleRecord>(
     alias,
-    Backend.BACKEND,
+    V7Backend.V7_BACKEND,
     path,
     childPath,
     parentPath,
@@ -68,7 +68,7 @@ open class RoleTable(
     companion object {
 
         /**
-         * The reference instance of <code>backend.t_role</code>
+         * The reference instance of <code>v7_backend.t_role</code>
          */
         val ROLE: RoleTable = RoleTable()
     }
@@ -79,12 +79,12 @@ open class RoleTable(
     override fun getRecordType(): Class<RoleRecord> = RoleRecord::class.java
 
     /**
-     * The column <code>backend.t_role.id</code>.
+     * The column <code>v7_backend.t_role.id</code>.
      */
     val ID: TableField<RoleRecord, UUID?> = createField(DSL.name("id"), SQLDataType.CHAR(36).nullable(false), this, "", AutoConverter<String, UUID>(String::class.java, UUID::class.java))
 
     /**
-     * The column <code>backend.t_role.name</code>.
+     * The column <code>v7_backend.t_role.name</code>.
      */
     val NAME: TableField<RoleRecord, Roles?> = createField(DSL.name("name"), SQLDataType.VARCHAR(255).nullable(false), this, "", EnumConverter<String, Roles>(String::class.java, Roles::class.java))
 
@@ -93,17 +93,17 @@ open class RoleTable(
     private constructor(alias: Name, aliased: Table<RoleRecord>?, where: Condition): this(alias, null, null, null, aliased, null, where)
 
     /**
-     * Create an aliased <code>backend.t_role</code> table reference
+     * Create an aliased <code>v7_backend.t_role</code> table reference
      */
     constructor(alias: String): this(DSL.name(alias))
 
     /**
-     * Create an aliased <code>backend.t_role</code> table reference
+     * Create an aliased <code>v7_backend.t_role</code> table reference
      */
     constructor(alias: Name): this(alias, null)
 
     /**
-     * Create a <code>backend.t_role</code> table reference
+     * Create a <code>v7_backend.t_role</code> table reference
      */
     constructor(): this(DSL.name("t_role"), null)
 
@@ -119,14 +119,14 @@ open class RoleTable(
         override fun `as`(alias: Name): TRolePath = TRolePath(alias, this)
         override fun `as`(alias: Table<*>): TRolePath = TRolePath(alias.qualifiedName, this)
     }
-    override fun getSchema(): Schema? = if (aliased()) null else Backend.BACKEND
+    override fun getSchema(): Schema? = if (aliased()) null else V7Backend.V7_BACKEND
     override fun getPrimaryKey(): UniqueKey<RoleRecord> = KEY_T_ROLE_PRIMARY
 
     private lateinit var _tUserRole: TUserRolePath
 
     /**
      * Get the implicit to-many join path to the
-     * <code>backend.t_user_role</code> table
+     * <code>v7_backend.t_user_role</code> table
      */
     fun tUserRole(): TUserRolePath {
         if (!this::_tUserRole.isInitialized)
@@ -140,7 +140,7 @@ open class RoleTable(
 
     /**
      * Get the implicit many-to-many join path to the
-     * <code>backend.t_user</code> table
+     * <code>v7_backend.t_user</code> table
      */
     val tUser: TUserPath
         get(): TUserPath = tUserRole().tUser()

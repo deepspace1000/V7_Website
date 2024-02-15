@@ -134,7 +134,7 @@ jooq {
 				logging = Logging.DEBUG
 				jdbc.apply {
 					driver = "org.mariadb.jdbc.Driver"
-					url = "jdbc:mariadb://localhost:3306/backend"
+					url = "jdbc:mariadb://localhost:3306/v7_backend"
 					user = "backend"
 					password = "backend"
 				}
@@ -142,7 +142,7 @@ jooq {
 					name = "org.jooq.codegen.KotlinGenerator"
 					database.apply {
 						name = "org.jooq.meta.mariadb.MariaDBDatabase"
-						inputSchema = "backend"
+						inputSchema = "v7_backend"
 						excludes = "Databasechangelog|Databasechangeloglock"
 						forcedTypes.addAll(
 							listOf(

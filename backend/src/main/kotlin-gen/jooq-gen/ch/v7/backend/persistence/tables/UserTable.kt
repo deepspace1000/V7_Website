@@ -4,7 +4,7 @@
 package ch.v7.backend.persistence.tables
 
 
-import ch.v7.backend.persistence.Backend
+import ch.v7.backend.persistence.V7Backend
 import ch.v7.backend.persistence.keys.FK_USER_RESSORT_USER
 import ch.v7.backend.persistence.keys.FK_USER_ROLE_USER
 import ch.v7.backend.persistence.keys.KEY_T_USER_PRIMARY
@@ -56,7 +56,7 @@ open class UserTable(
     where: Condition?
 ): TableImpl<UserRecord>(
     alias,
-    Backend.BACKEND,
+    V7Backend.V7_BACKEND,
     path,
     childPath,
     parentPath,
@@ -69,7 +69,7 @@ open class UserTable(
     companion object {
 
         /**
-         * The reference instance of <code>backend.t_user</code>
+         * The reference instance of <code>v7_backend.t_user</code>
          */
         val USER: UserTable = UserTable()
     }
@@ -80,32 +80,32 @@ open class UserTable(
     override fun getRecordType(): Class<UserRecord> = UserRecord::class.java
 
     /**
-     * The column <code>backend.t_user.id</code>.
+     * The column <code>v7_backend.t_user.id</code>.
      */
     val ID: TableField<UserRecord, UUID?> = createField(DSL.name("id"), SQLDataType.CHAR(36).nullable(false), this, "", AutoConverter<String, UUID>(String::class.java, UUID::class.java))
 
     /**
-     * The column <code>backend.t_user.first_name</code>.
+     * The column <code>v7_backend.t_user.first_name</code>.
      */
     val FIRST_NAME: TableField<UserRecord, String?> = createField(DSL.name("first_name"), SQLDataType.VARCHAR(255).nullable(false), this, "")
 
     /**
-     * The column <code>backend.t_user.last_name</code>.
+     * The column <code>v7_backend.t_user.last_name</code>.
      */
     val LAST_NAME: TableField<UserRecord, String?> = createField(DSL.name("last_name"), SQLDataType.VARCHAR(255).nullable(false), this, "")
 
     /**
-     * The column <code>backend.t_user.phone</code>.
+     * The column <code>v7_backend.t_user.phone</code>.
      */
     val PHONE: TableField<UserRecord, String?> = createField(DSL.name("phone"), SQLDataType.VARCHAR(255).defaultValue(DSL.field(DSL.raw("NULL"), SQLDataType.VARCHAR)), this, "")
 
     /**
-     * The column <code>backend.t_user.e_mail</code>.
+     * The column <code>v7_backend.t_user.e_mail</code>.
      */
     val E_MAIL: TableField<UserRecord, String?> = createField(DSL.name("e_mail"), SQLDataType.VARCHAR(255).nullable(false), this, "")
 
     /**
-     * The column <code>backend.t_user.password</code>.
+     * The column <code>v7_backend.t_user.password</code>.
      */
     val PASSWORD: TableField<UserRecord, String?> = createField(DSL.name("password"), SQLDataType.VARCHAR(255).nullable(false), this, "")
 
@@ -114,17 +114,17 @@ open class UserTable(
     private constructor(alias: Name, aliased: Table<UserRecord>?, where: Condition): this(alias, null, null, null, aliased, null, where)
 
     /**
-     * Create an aliased <code>backend.t_user</code> table reference
+     * Create an aliased <code>v7_backend.t_user</code> table reference
      */
     constructor(alias: String): this(DSL.name(alias))
 
     /**
-     * Create an aliased <code>backend.t_user</code> table reference
+     * Create an aliased <code>v7_backend.t_user</code> table reference
      */
     constructor(alias: Name): this(alias, null)
 
     /**
-     * Create a <code>backend.t_user</code> table reference
+     * Create a <code>v7_backend.t_user</code> table reference
      */
     constructor(): this(DSL.name("t_user"), null)
 
@@ -140,14 +140,14 @@ open class UserTable(
         override fun `as`(alias: Name): TUserPath = TUserPath(alias, this)
         override fun `as`(alias: Table<*>): TUserPath = TUserPath(alias.qualifiedName, this)
     }
-    override fun getSchema(): Schema? = if (aliased()) null else Backend.BACKEND
+    override fun getSchema(): Schema? = if (aliased()) null else V7Backend.V7_BACKEND
     override fun getPrimaryKey(): UniqueKey<UserRecord> = KEY_T_USER_PRIMARY
 
     private lateinit var _tUserRessort: TUserRessortPath
 
     /**
      * Get the implicit to-many join path to the
-     * <code>backend.t_user_ressort</code> table
+     * <code>v7_backend.t_user_ressort</code> table
      */
     fun tUserRessort(): TUserRessortPath {
         if (!this::_tUserRessort.isInitialized)
@@ -163,7 +163,7 @@ open class UserTable(
 
     /**
      * Get the implicit to-many join path to the
-     * <code>backend.t_user_role</code> table
+     * <code>v7_backend.t_user_role</code> table
      */
     fun tUserRole(): TUserRolePath {
         if (!this::_tUserRole.isInitialized)
@@ -177,14 +177,14 @@ open class UserTable(
 
     /**
      * Get the implicit many-to-many join path to the
-     * <code>backend.t_ressort</code> table
+     * <code>v7_backend.t_ressort</code> table
      */
     val tRessort: TRessortPath
         get(): TRessortPath = tUserRessort().tRessort()
 
     /**
      * Get the implicit many-to-many join path to the
-     * <code>backend.t_role</code> table
+     * <code>v7_backend.t_role</code> table
      */
     val tRole: TRolePath
         get(): TRolePath = tUserRole().tRole()

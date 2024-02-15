@@ -4,7 +4,7 @@
 package ch.v7.backend.persistence.tables
 
 
-import ch.v7.backend.persistence.Backend
+import ch.v7.backend.persistence.V7Backend
 import ch.v7.backend.persistence.keys.FK_USER_RESSORT_RESSORT
 import ch.v7.backend.persistence.keys.FK_USER_RESSORT_USER
 import ch.v7.backend.persistence.keys.KEY_T_USER_RESSORT_PRIMARY
@@ -55,7 +55,7 @@ open class UserRessortTable(
     where: Condition?
 ): TableImpl<UserRessortRecord>(
     alias,
-    Backend.BACKEND,
+    V7Backend.V7_BACKEND,
     path,
     childPath,
     parentPath,
@@ -68,7 +68,7 @@ open class UserRessortTable(
     companion object {
 
         /**
-         * The reference instance of <code>backend.t_user_ressort</code>
+         * The reference instance of <code>v7_backend.t_user_ressort</code>
          */
         val USER_RESSORT: UserRessortTable = UserRessortTable()
     }
@@ -79,12 +79,12 @@ open class UserRessortTable(
     override fun getRecordType(): Class<UserRessortRecord> = UserRessortRecord::class.java
 
     /**
-     * The column <code>backend.t_user_ressort.user_id</code>.
+     * The column <code>v7_backend.t_user_ressort.user_id</code>.
      */
     val USER_ID: TableField<UserRessortRecord, UUID?> = createField(DSL.name("user_id"), SQLDataType.CHAR(36).nullable(false), this, "", AutoConverter<String, UUID>(String::class.java, UUID::class.java))
 
     /**
-     * The column <code>backend.t_user_ressort.ressort_id</code>.
+     * The column <code>v7_backend.t_user_ressort.ressort_id</code>.
      */
     val RESSORT_ID: TableField<UserRessortRecord, UUID?> = createField(DSL.name("ressort_id"), SQLDataType.CHAR(36).nullable(false), this, "", AutoConverter<String, UUID>(String::class.java, UUID::class.java))
 
@@ -93,17 +93,17 @@ open class UserRessortTable(
     private constructor(alias: Name, aliased: Table<UserRessortRecord>?, where: Condition): this(alias, null, null, null, aliased, null, where)
 
     /**
-     * Create an aliased <code>backend.t_user_ressort</code> table reference
+     * Create an aliased <code>v7_backend.t_user_ressort</code> table reference
      */
     constructor(alias: String): this(DSL.name(alias))
 
     /**
-     * Create an aliased <code>backend.t_user_ressort</code> table reference
+     * Create an aliased <code>v7_backend.t_user_ressort</code> table reference
      */
     constructor(alias: Name): this(alias, null)
 
     /**
-     * Create a <code>backend.t_user_ressort</code> table reference
+     * Create a <code>v7_backend.t_user_ressort</code> table reference
      */
     constructor(): this(DSL.name("t_user_ressort"), null)
 
@@ -119,14 +119,14 @@ open class UserRessortTable(
         override fun `as`(alias: Name): TUserRessortPath = TUserRessortPath(alias, this)
         override fun `as`(alias: Table<*>): TUserRessortPath = TUserRessortPath(alias.qualifiedName, this)
     }
-    override fun getSchema(): Schema? = if (aliased()) null else Backend.BACKEND
+    override fun getSchema(): Schema? = if (aliased()) null else V7Backend.V7_BACKEND
     override fun getPrimaryKey(): UniqueKey<UserRessortRecord> = KEY_T_USER_RESSORT_PRIMARY
     override fun getReferences(): List<ForeignKey<UserRessortRecord, *>> = listOf(FK_USER_RESSORT_USER, FK_USER_RESSORT_RESSORT)
 
     private lateinit var _tUser: TUserPath
 
     /**
-     * Get the implicit join path to the <code>backend.t_user</code> table.
+     * Get the implicit join path to the <code>v7_backend.t_user</code> table.
      */
     fun tUser(): TUserPath {
         if (!this::_tUser.isInitialized)
@@ -141,7 +141,8 @@ open class UserRessortTable(
     private lateinit var _tRessort: TRessortPath
 
     /**
-     * Get the implicit join path to the <code>backend.t_ressort</code> table.
+     * Get the implicit join path to the <code>v7_backend.t_ressort</code>
+     * table.
      */
     fun tRessort(): TRessortPath {
         if (!this::_tRessort.isInitialized)

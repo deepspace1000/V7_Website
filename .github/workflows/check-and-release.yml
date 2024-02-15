@@ -76,7 +76,8 @@ jobs:
           labels: |
             org.opencontainers.image.title=${{ env.IMAGE_NAME }}
           tags: |
-            type=sha
+            type=sha,
+            type=ref,event=tag
 
       - name: Docker Login
         if: github.event_name != 'pull_request'
@@ -140,7 +141,8 @@ jobs:
           labels: |
             org.opencontainers.image.title=${{ env.IMAGE_NAME }}
           tags: |
-            type=sha
+            type=sha,
+            type=ref,event=tag
 
       - name: Docker Login
         if: github.event_name != 'pull_request'

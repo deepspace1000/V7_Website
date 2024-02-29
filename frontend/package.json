@@ -14,7 +14,7 @@
     "generate-api-client": "openapi -i http://localhost:8080/openapi/v3/api-docs -o src/state/api/generated --useUnionTypes -c axios && prettier --write src/state/api/generated"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.3",
+    "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.11",
     "@mui/joy": "^5.0.0-beta.29",
@@ -22,15 +22,16 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-query": "^3.39.3",
-    "react-router-dom": "^6.22.1"
+    "react-router-dom": "^6.22.2"
   },
   "devDependencies": {
     "@nabla/vite-plugin-eslint": "^2.0.2",
     "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.19",
-    "@typescript-eslint/eslint-plugin": "^6.21.0",
-    "@typescript-eslint/parser": "^6.21.0",
+    "@typescript-eslint/eslint-plugin": "^7.1.0",
+    "@typescript-eslint/parser": "^7.1.0",
     "@vitejs/plugin-react": "^4.2.1",
+    "@vitejs/plugin-react-swc": "^3.6.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard-with-typescript": "^43.0.1",

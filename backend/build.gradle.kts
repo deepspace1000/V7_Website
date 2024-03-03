@@ -214,12 +214,13 @@ jooq {
 
 sonar {
 	properties {
-		property("sonar.projectKey", "deepspace1000_V7_Webseite_Backend")
+		property("sonar.projectKey", "v7_website_backend")
 		property("sonar.organization", "deepspace1000")
 		property("sonar.host.url", "https://sonarcloud.io")
 		property("sonar.sources", "src/main")
 		property("sonar.tests", "src/test")
 		property("sonar.log.level", "DEBUG")
+		property("sonar.projectName", "v7_website_backend")
 
 		property("sonar.exclusions", "src/main/kotlin-gen/jooq-gen/**/*")
 		property("sonar.cpd.exclusions", "src/main/**/*.sql")

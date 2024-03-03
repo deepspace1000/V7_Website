@@ -1,4 +1,4 @@
-# V7_Webseite
+# V7_Website
 
 [![Check & Release](https://github.com/deepspace1000/V7_Webseite/actions/workflows/check-and-release.yml/badge.svg)](https://github.com/deepspace1000/V7_Webseite/actions/workflows/check-and-release.yml)
 ![Uptime Robot ratio (30 days)](https://img.shields.io/uptimerobot/ratio/30/m796425090-f23a308a286302410fae8a8c)

@@ -5,15 +5,15 @@
 
 
 Backend:
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=deepspace1000_V7_Webseite_Backend&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=deepspace1000_V7_Webseite_Backend)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=deepspace1000_V7_Webseite_Backend&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=deepspace1000_V7_Webseite_Backend)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=deepspace1000_V7_Webseite_Backend&metric=bugs)](https://sonarcloud.io/summary/new_code?id=deepspace1000_V7_Webseite_Backend)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=v7_website_backend&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=v7_website_backend)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=v7_website_backend&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=v7_website_backend)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=v7_website_backend&metric=bugs)](https://sonarcloud.io/summary/new_code?id=v7_website_backend)
 
 
 Frontend:
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=deepspace1000_V7_Webseite_Frontend&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=deepspace1000_V7_Webseite_Frontend)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=deepspace1000_V7_Webseite_Frontend&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=deepspace1000_V7_Webseite_Frontend)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=deepspace1000_V7_Webseite_Frontend&metric=bugs)](https://sonarcloud.io/summary/new_code?id=deepspace1000_V7_Webseite_Frontend)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=v7_website_frontend&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=v7_website_frontend)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=v7_website_frontend&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=v7_website_frontend)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=v7_website_frontend&metric=bugs)](https://sonarcloud.io/summary/new_code?id=v7_website_frontend)
 
 This Application is for the [Jugendarbeit Bauma](https://v7-bauma.ch) project called V7.
 

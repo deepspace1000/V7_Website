@@ -10,7 +10,7 @@ jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-
 
 jackson-dataformat-csv = { module = "com.fasterxml.jackson.dataformat:jackson-dataformat-csv" }
 jackson-datatype-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310" }
-jakarta-xml-bind-api = "jakarta.xml.bind:jakarta.xml.bind-api:4.0.1"
+jakarta-xml-bind-api = "jakarta.xml.bind:jakarta.xml.bind-api:4.0.2"
 jooq = { module = "org.jooq:jooq" }
 jooq-codegen = { module = "org.jooq:jooq-codegen" }
 jsr305 = "com.google.code.findbugs:jsr305:3.0.2"

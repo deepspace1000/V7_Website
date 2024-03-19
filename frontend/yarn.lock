@@ -560,9 +560,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/icons-material@npm:^5.15.12":
-  version: 5.15.12
-  resolution: "@mui/icons-material@npm:5.15.12"
+"@mui/icons-material@npm:^5.15.14":
+  version: 5.15.14
+  resolution: "@mui/icons-material@npm:5.15.14"
   dependencies:
     "@babel/runtime": ^7.23.9
   peerDependencies:
@@ -572,7 +572,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 312c8926cf863ca82f44f0350d0773eee15ab02d959fecb7de0e92105244642f06463effaee7fe3bdcc9753aa603f60695da82a1d91f3775ab514c3d65eb20c3
+  checksum: 719036244167c7cb5456074d7d66df0c26d4b200c11620ba177a4e75186f6ecc4930a3b4bcb7300d92aa37df19ca8406fa63ad4347214cc167ddca986eb1a198
   languageName: node
   linkType: hard
 
@@ -5197,7 +5197,7 @@ __metadata:
   dependencies:
     "@emotion/react": ^11.11.4
     "@emotion/styled": ^11.11.0
-    "@mui/icons-material": ^5.15.12
+    "@mui/icons-material": ^5.15.14
     "@mui/joy": ^5.0.0-beta.31
     "@nabla/vite-plugin-eslint": ^2.0.2
     "@types/react": ^18.2.61

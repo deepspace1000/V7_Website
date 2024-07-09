@@ -24,7 +24,7 @@ liquibase-core = { module = "org.liquibase:liquibase-core" }
 mariadb-java-client = "org.mariadb.jdbc:mariadb-java-client:2.7.12"
 mockserver = { module = "org.testcontainers:mockserver" }
 mockserver-client-java = "org.mock-server:mockserver-client-java:5.15.0"
-mockito-kotlin = "org.mockito.kotlin:mockito-kotlin:5.3.1"
+mockito-kotlin = "org.mockito.kotlin:mockito-kotlin:5.4.0"
 org-testcontainers-mariadb = { module = "org.testcontainers:mariadb" }
 pgpainless-core = "org.pgpainless:pgpainless-core:1.6.7"
 spring-boot-configuration-processor = "org.springframework.boot:spring-boot-configuration-processor:3.3.1"

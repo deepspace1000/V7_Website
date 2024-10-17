@@ -1,6 +1,6 @@
 [versions]
 kotlin = "1.9.25"
-spring = "6.1.13"
+spring = "6.1.14"
 springboot = "3.3.4"
 springdoc = "2.6.0"
 
